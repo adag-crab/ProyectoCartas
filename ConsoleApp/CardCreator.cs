@@ -17,14 +17,16 @@ public static class CardCreator
                 Console.Clear();
                 MonsterCreator();
                 break;
+
             case "2":
                 Console.Clear();
                 PowerCardCreator();
                 break;
+
             case "3":
-                
                 Console.Clear();
                 break;
+
             default:
                 Console.Clear();
                 Console.WriteLine("esa opcion es un mojon");
@@ -41,17 +43,38 @@ public static class CardCreator
 
         Console.WriteLine("Cual sera el nombre del mounstro");
         string name = Console.ReadLine();
+
         Console.WriteLine("Cual sera el tipo");
 
         //imprimir opciones de enum
 
         string type = Console.ReadLine();
+
         Console.WriteLine("Cuales seran sus puntos de ataque");
         int attackPoints = int.Parse(Console.ReadLine());
+
         Console.WriteLine("Cuales seran sus puntos de vida");
         int lifePoints = int.Parse(Console.ReadLine());
 
-        MonsterCard monsterCard = new MonsterCard(0, name, Engine.Types.planta, "", "", "", "Normal", attackPoints, lifePoints);
+        Console.WriteLine("La descripcion publica de la carta");
+        string publicDescription = Console.ReadLine();
+
+        Console.WriteLine("Escriba el codigo de la carta");
+        
+        string programmerDescription = "";
+        
+        while (true)
+        {
+            string s = Console.ReadLine();
+
+            if (s == "")
+                break;
+
+            programmerDescription += s + "\n";
+        }
+
+
+        MonsterCard monsterCard = new MonsterCard(0, name, Engine.Types.planta, publicDescription, programmerDescription, "", "Normal", attackPoints, lifePoints);
 
         Engine.MonsterCardsDataBase.Add(monsterCard);
         Engine.SaveMonsterCard(monsterCard);
@@ -66,10 +89,12 @@ public static class CardCreator
                 Console.Clear();
                 MonsterCreator();
                 break;
+
             case "2":
                 Console.Clear();
                 CardMain();
                 break;
+
             default:
                 Console.Clear();
                 Console.WriteLine("esa opcion es un mojon");
@@ -91,6 +116,7 @@ public static class CardCreator
         //type distinto a mounstro
 
         string type = Console.ReadLine();
+
         Console.WriteLine("La descripcion publica de la carta");
         string publicDescription = Console.ReadLine();
 
@@ -115,7 +141,8 @@ public static class CardCreator
         Engine.PowerCardsDataBase.Add(powerCard);
         Engine.SavePowerCard(powerCard);
 
-        Console.WriteLine(name + "Ha sido creada con exito");
+        Console.WriteLine(name + " ha sido creada con exito");
+
         Console.WriteLine("1. Crear otro Carta \n2. Volver atras");
         string option = Console.ReadLine();
         switch (option)
@@ -125,6 +152,7 @@ public static class CardCreator
                 PowerCardCreator();
                 CardMain();
                 break;
+
             default:
                 Console.Clear();
                 Console.WriteLine("esa opcion es un mojon");

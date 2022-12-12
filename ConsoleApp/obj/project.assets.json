@@ -27,34 +27,33 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\YUNIER\\.nuget\\packages\\": {}
+    "C:\\Users\\Myzkull\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\YUNIER\\Desktop\\ProyectoCartas2\\ProyectoCartas\\ConsoleApp\\ConsoleApp.csproj",
+      "projectUniqueName": "E:\\Escuela\\Programación\\ProyectoCartas\\ConsoleApp\\ConsoleApp.csproj",
       "projectName": "ConsoleApp",
-      "projectPath": "C:\\Users\\YUNIER\\Desktop\\ProyectoCartas2\\ProyectoCartas\\ConsoleApp\\ConsoleApp.csproj",
-      "packagesPath": "C:\\Users\\YUNIER\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\YUNIER\\Desktop\\ProyectoCartas2\\ProyectoCartas\\ConsoleApp\\obj\\",
+      "projectPath": "E:\\Escuela\\Programación\\ProyectoCartas\\ConsoleApp\\ConsoleApp.csproj",
+      "packagesPath": "C:\\Users\\Myzkull\\.nuget\\packages\\",
+      "outputPath": "E:\\Escuela\\Programación\\ProyectoCartas\\ConsoleApp\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\YUNIER\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\Myzkull\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
         "net6.0"
       ],
       "sources": {
-        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-        "https://api.nuget.org/v3/index.json": {}
+        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {}
       },
       "frameworks": {
         "net6.0": {
           "targetAlias": "net6.0",
           "projectReferences": {
-            "C:\\Users\\YUNIER\\Desktop\\ProyectoCartas2\\ProyectoCartas\\CardsEngine\\CardsEngine.csproj": {
-              "projectPath": "C:\\Users\\YUNIER\\Desktop\\ProyectoCartas2\\ProyectoCartas\\CardsEngine\\CardsEngine.csproj"
+            "E:\\Escuela\\Programación\\ProyectoCartas\\CardsEngine\\CardsEngine.csproj": {
+              "projectPath": "E:\\Escuela\\Programación\\ProyectoCartas\\CardsEngine\\CardsEngine.csproj"
             }
           }
         }
