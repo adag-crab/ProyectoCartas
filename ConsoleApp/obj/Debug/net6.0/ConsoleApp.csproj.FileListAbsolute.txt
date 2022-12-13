@@ -36,3 +36,21 @@ C:\Users\YUNIER\Desktop\ProyectoCartas2\ProyectoCartas\ConsoleApp\obj\Debug\net6
 C:\Users\YUNIER\Desktop\ProyectoCartas2\ProyectoCartas\ConsoleApp\obj\Debug\net6.0\ref\ConsoleApp.dll
 C:\Users\YUNIER\Desktop\ProyectoCartas2\ProyectoCartas\ConsoleApp\obj\Debug\net6.0\ConsoleApp.pdb
 C:\Users\YUNIER\Desktop\ProyectoCartas2\ProyectoCartas\ConsoleApp\obj\Debug\net6.0\ConsoleApp.genruntimeconfig.cache
+C:\Users\YUNIER\Desktop\ProyectoCartas2\Copia ProyectoCartas\ConsoleApp\bin\Debug\net6.0\ConsoleApp.exe
+C:\Users\YUNIER\Desktop\ProyectoCartas2\Copia ProyectoCartas\ConsoleApp\bin\Debug\net6.0\ConsoleApp.deps.json
+C:\Users\YUNIER\Desktop\ProyectoCartas2\Copia ProyectoCartas\ConsoleApp\bin\Debug\net6.0\ConsoleApp.runtimeconfig.json
+C:\Users\YUNIER\Desktop\ProyectoCartas2\Copia ProyectoCartas\ConsoleApp\bin\Debug\net6.0\ConsoleApp.dll
+C:\Users\YUNIER\Desktop\ProyectoCartas2\Copia ProyectoCartas\ConsoleApp\bin\Debug\net6.0\ref\ConsoleApp.dll
+C:\Users\YUNIER\Desktop\ProyectoCartas2\Copia ProyectoCartas\ConsoleApp\bin\Debug\net6.0\ConsoleApp.pdb
+C:\Users\YUNIER\Desktop\ProyectoCartas2\Copia ProyectoCartas\ConsoleApp\bin\Debug\net6.0\CardsEngine.dll
+C:\Users\YUNIER\Desktop\ProyectoCartas2\Copia ProyectoCartas\ConsoleApp\bin\Debug\net6.0\CardsEngine.pdb
+C:\Users\YUNIER\Desktop\ProyectoCartas2\Copia ProyectoCartas\ConsoleApp\obj\Debug\net6.0\ConsoleApp.csproj.AssemblyReference.cache
+C:\Users\YUNIER\Desktop\ProyectoCartas2\Copia ProyectoCartas\ConsoleApp\obj\Debug\net6.0\ConsoleApp.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\YUNIER\Desktop\ProyectoCartas2\Copia ProyectoCartas\ConsoleApp\obj\Debug\net6.0\ConsoleApp.AssemblyInfoInputs.cache
+C:\Users\YUNIER\Desktop\ProyectoCartas2\Copia ProyectoCartas\ConsoleApp\obj\Debug\net6.0\ConsoleApp.AssemblyInfo.cs
+C:\Users\YUNIER\Desktop\ProyectoCartas2\Copia ProyectoCartas\ConsoleApp\obj\Debug\net6.0\ConsoleApp.csproj.CoreCompileInputs.cache
+C:\Users\YUNIER\Desktop\ProyectoCartas2\Copia ProyectoCartas\ConsoleApp\obj\Debug\net6.0\ConsoleApp.csproj.CopyComplete
+C:\Users\YUNIER\Desktop\ProyectoCartas2\Copia ProyectoCartas\ConsoleApp\obj\Debug\net6.0\ConsoleApp.dll
+C:\Users\YUNIER\Desktop\ProyectoCartas2\Copia ProyectoCartas\ConsoleApp\obj\Debug\net6.0\ref\ConsoleApp.dll
+C:\Users\YUNIER\Desktop\ProyectoCartas2\Copia ProyectoCartas\ConsoleApp\obj\Debug\net6.0\ConsoleApp.pdb
+C:\Users\YUNIER\Desktop\ProyectoCartas2\Copia ProyectoCartas\ConsoleApp\obj\Debug\net6.0\ConsoleApp.genruntimeconfig.cache

@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\YUNIER\\Desktop\\ProyectoCartas2\\ProyectoCartas\\ConsoleApp\\ConsoleApp.csproj": {}
+    "C:\\Users\\YUNIER\\Desktop\\ProyectoCartas2\\Copia ProyectoCartas\\ConsoleApp\\ConsoleApp.csproj": {}
   },
   "projects": {
-    "C:\\Users\\YUNIER\\Desktop\\ProyectoCartas2\\ProyectoCartas\\CardsEngine\\CardsEngine.csproj": {
+    "C:\\Users\\YUNIER\\Desktop\\ProyectoCartas2\\Copia ProyectoCartas\\CardsEngine\\CardsEngine.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\YUNIER\\Desktop\\ProyectoCartas2\\ProyectoCartas\\CardsEngine\\CardsEngine.csproj",
+        "projectUniqueName": "C:\\Users\\YUNIER\\Desktop\\ProyectoCartas2\\Copia ProyectoCartas\\CardsEngine\\CardsEngine.csproj",
         "projectName": "CardsEngine",
-        "projectPath": "C:\\Users\\YUNIER\\Desktop\\ProyectoCartas2\\ProyectoCartas\\CardsEngine\\CardsEngine.csproj",
+        "projectPath": "C:\\Users\\YUNIER\\Desktop\\ProyectoCartas2\\Copia ProyectoCartas\\CardsEngine\\CardsEngine.csproj",
         "packagesPath": "C:\\Users\\YUNIER\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\YUNIER\\Desktop\\ProyectoCartas2\\ProyectoCartas\\CardsEngine\\obj\\",
+        "outputPath": "C:\\Users\\YUNIER\\Desktop\\ProyectoCartas2\\Copia ProyectoCartas\\CardsEngine\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\YUNIER\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -58,14 +58,14 @@
         }
       }
     },
-    "C:\\Users\\YUNIER\\Desktop\\ProyectoCartas2\\ProyectoCartas\\ConsoleApp\\ConsoleApp.csproj": {
+    "C:\\Users\\YUNIER\\Desktop\\ProyectoCartas2\\Copia ProyectoCartas\\ConsoleApp\\ConsoleApp.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\YUNIER\\Desktop\\ProyectoCartas2\\ProyectoCartas\\ConsoleApp\\ConsoleApp.csproj",
+        "projectUniqueName": "C:\\Users\\YUNIER\\Desktop\\ProyectoCartas2\\Copia ProyectoCartas\\ConsoleApp\\ConsoleApp.csproj",
         "projectName": "ConsoleApp",
-        "projectPath": "C:\\Users\\YUNIER\\Desktop\\ProyectoCartas2\\ProyectoCartas\\ConsoleApp\\ConsoleApp.csproj",
+        "projectPath": "C:\\Users\\YUNIER\\Desktop\\ProyectoCartas2\\Copia ProyectoCartas\\ConsoleApp\\ConsoleApp.csproj",
         "packagesPath": "C:\\Users\\YUNIER\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\YUNIER\\Desktop\\ProyectoCartas2\\ProyectoCartas\\ConsoleApp\\obj\\",
+        "outputPath": "C:\\Users\\YUNIER\\Desktop\\ProyectoCartas2\\Copia ProyectoCartas\\ConsoleApp\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\YUNIER\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -82,8 +82,8 @@
           "net6.0": {
             "targetAlias": "net6.0",
             "projectReferences": {
-              "C:\\Users\\YUNIER\\Desktop\\ProyectoCartas2\\ProyectoCartas\\CardsEngine\\CardsEngine.csproj": {
-                "projectPath": "C:\\Users\\YUNIER\\Desktop\\ProyectoCartas2\\ProyectoCartas\\CardsEngine\\CardsEngine.csproj"
+              "C:\\Users\\YUNIER\\Desktop\\ProyectoCartas2\\Copia ProyectoCartas\\CardsEngine\\CardsEngine.csproj": {
+                "projectPath": "C:\\Users\\YUNIER\\Desktop\\ProyectoCartas2\\Copia ProyectoCartas\\CardsEngine\\CardsEngine.csproj"
               }
             }
           }

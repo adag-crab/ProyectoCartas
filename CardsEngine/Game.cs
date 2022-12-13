@@ -5,7 +5,7 @@ namespace CardsEngine;
  *  EL estado del tablero
  */
 
-public class Game
+public class Game : IClonable
 {
     
     public Deck[] decks { get; private set; }
@@ -18,12 +18,33 @@ public class Game
     public List<Npc> npcs { get; private set; }
 
 
+    public object Clone()
+    {
+        Game game = new Game(players,200, decks);
+
+        game.board = board;
+
+        /*
+        game.decks = this.decks;
+        game.players = this.players;
+        game.playersLife = this.playersLife;
+        game.energyPoints = this.energyPoints;
+        game.turn = this.turn;
+        game.board = this.board; 
+        game.losers = this.losers;
+        game.npcs = this.npcs;
+        */
+        return game;
+    }
+
 
     public Game(bool[] players, int energyPoints, Deck[] decks)
     { // inciar el juego 
         this.players = players;
         this.turn = 1;
         this.decks = decks;
+        List<Npc> npcs = new List<Npc>();
+
 
         this.energyPoints = new int[players.Length]; // incializar los puntos de energia de cada juagdor 
         for (int i = 0; i < players.Length; i++) this.energyPoints[i] = energyPoints;
@@ -38,9 +59,11 @@ public class Game
         {
             if(!players[i])
             {
-              this.npcs.Add(new Npc(i));
+             npcs.Add(new Npc(i));
             }
         }
+
+        this.npcs = npcs;
     }
     public void PlayCard(PowerCard power, int player, int targetPlayer)
     {
@@ -89,6 +112,8 @@ public class Game
 
 public class Board
 {
+    
+
     public List<PowerCard>[] hands { get; private set; }
     public MonsterCard[,] monsters { get; private set; }
 

@@ -11,30 +11,47 @@ public class Program
         {
             Deck[] decks = new Deck[2];
 
-            for (int i = 0; i < decks.Length; i++)
-            {
+           
                 Dictionary<PowerCard, int> asociations = new Dictionary<PowerCard, int>();
-                MonsterCard[] a = new MonsterCard[3];
+                MonsterCard[] b = new MonsterCard[3];
                 PowerCard[] powerCards = new PowerCard[12];
-
-                
 
                 for (int j = 0; j < 3; j++)
                 {
-                    a[j] = Engine.MonsterCardsDataBase[j];
-
-                    
+                    b[j] = Engine.MonsterCardsDataBase[j];
 
                     for (int k = 0; k < 4; k++)
                     {
                         powerCards[j * 4 + k] = Engine.PowerCardsDataBase[j * 4 + k];
-                        asociations.Add(Engine.PowerCardsDataBase[j * 4 + k], i);
+                        asociations.Add(Engine.PowerCardsDataBase[j * 4 + k], 0);
                     }
                 }
 
-                decks[i] = new Deck(a,powerCards, asociations);
+                decks[0] = new Deck(b,powerCards, asociations);
 
+            for (int j = 0; j < 3; j++)
+            {
+                b[j] = Engine.MonsterCardsDataBase[j].Clone() as MonsterCard;
+
+                for (int k = 0; k < 4; k++)
+                {
+                    powerCards[j * 4 + k] = Engine.PowerCardsDataBase[j * 4 + k];
+                    //asociations.Add(Engine.PowerCardsDataBase[j * 4 + k], 0);
+                }
             }
+
+            decks[1] = new Deck(b, powerCards, asociations);
+
+
+
+
+            ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+
+
+
+
             Console.Clear();
             Console.WriteLine("Seleccione una opcion:\n1. Inciar Duelo \n2. Crear Cartas\n3. Salir");
             string option = Console.ReadLine();
@@ -55,7 +72,7 @@ public class Program
                         players[i] = true;
                     }
 
-                    StarNewGame(players, DeckCreator.CreateAllDecks(players));
+                    StarNewGame(players, decks /*DeckCreator.CreateAllDecks(players)*/);
                     break;
                 case "2":
                     CardCreator.CardMain();
@@ -94,6 +111,8 @@ public class Program
                 game.TurnDraw(player);
                 ShowBoard(game, player);
 
+                //Console.WriteLine(game.npcs.Count);
+                //Console.WriteLine(player);
                 Play(player, game);
                 if (Engine.PlayerWins(game.losers) != -1)
                 {
@@ -109,7 +128,9 @@ public class Program
 
         if (!game.players[player])    //chequear si quien juga es un npc
         {
-            game.npcs[player].PlayTurn(game);
+            int RealPlayers = game.players.Length-game.npcs.Count;
+
+            game.npcs[player-RealPlayers].PlayTurn(game); 
         }
         else
         {

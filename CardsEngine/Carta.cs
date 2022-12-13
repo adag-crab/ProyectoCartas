@@ -34,7 +34,14 @@ public class PowerCard : Card, IClonable
 	}
 	public object Clone()
     {
-		return (PowerCard) this.MemberwiseClone();
+		return new PowerCard(
+			this.id,
+			this.name,
+			this.type,
+			this.publicDescription,
+			this.programmerDescription,
+			this.imageURL,
+			this.activationEnergy);	
     }
 }
 
@@ -57,7 +64,16 @@ public class MonsterCard : Card
     }
 	public object Clone()
 	{
-		return (MonsterCard) this.MemberwiseClone();
+		return new MonsterCard(
+			this.id,
+			this.name,
+			this.type,
+			this.publicDescription,
+			this.programmerDescription,
+			this.imageURL,
+			this.state,
+			this.attackPoints,
+			this.lifePoints);
 	}
 }
 

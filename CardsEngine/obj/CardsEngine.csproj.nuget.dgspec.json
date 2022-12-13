@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\YUNIER\\Desktop\\ProyectoCartas2\\ProyectoCartas\\CardsEngine\\CardsEngine.csproj": {}
+    "C:\\Users\\YUNIER\\Desktop\\ProyectoCartas2\\Copia ProyectoCartas\\CardsEngine\\CardsEngine.csproj": {}
   },
   "projects": {
-    "C:\\Users\\YUNIER\\Desktop\\ProyectoCartas2\\ProyectoCartas\\CardsEngine\\CardsEngine.csproj": {
+    "C:\\Users\\YUNIER\\Desktop\\ProyectoCartas2\\Copia ProyectoCartas\\CardsEngine\\CardsEngine.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\YUNIER\\Desktop\\ProyectoCartas2\\ProyectoCartas\\CardsEngine\\CardsEngine.csproj",
+        "projectUniqueName": "C:\\Users\\YUNIER\\Desktop\\ProyectoCartas2\\Copia ProyectoCartas\\CardsEngine\\CardsEngine.csproj",
         "projectName": "CardsEngine",
-        "projectPath": "C:\\Users\\YUNIER\\Desktop\\ProyectoCartas2\\ProyectoCartas\\CardsEngine\\CardsEngine.csproj",
+        "projectPath": "C:\\Users\\YUNIER\\Desktop\\ProyectoCartas2\\Copia ProyectoCartas\\CardsEngine\\CardsEngine.csproj",
         "packagesPath": "C:\\Users\\YUNIER\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\YUNIER\\Desktop\\ProyectoCartas2\\ProyectoCartas\\CardsEngine\\obj\\",
+        "outputPath": "C:\\Users\\YUNIER\\Desktop\\ProyectoCartas2\\Copia ProyectoCartas\\CardsEngine\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\YUNIER\\AppData\\Roaming\\NuGet\\NuGet.Config",
