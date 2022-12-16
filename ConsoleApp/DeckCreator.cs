@@ -40,7 +40,7 @@ public static class DeckCreator
             int m = int.Parse(Console.ReadLine());
 
             
-            monsterCards[i] = Engine.MonsterCardsDataBase[m-1];
+            monsterCards[i] = Engine.MonsterCardsDataBase[m-1].Clone();
 
             Console.Clear();
             Console.WriteLine("Elija sus 12 cartas");
@@ -55,7 +55,7 @@ public static class DeckCreator
             {
                 int p = int.Parse(Console.ReadLine());
 
-                powerCards[i * 4 + j] = Engine.PowerCardsDataBase[p-1];
+                powerCards[i * 4 + j] = Engine.PowerCardsDataBase[p-1].Clone();
                 asociations.Add(Engine.PowerCardsDataBase[p-1], i);
             }
         }
@@ -73,11 +73,11 @@ public static class DeckCreator
 
         for (int i = 0; i < monsterCards.Length; i++)
         {
-            monsterCards[i] = Engine.MonsterCardsDataBase[random.Next(0, Engine.MonsterCardsDataBase.Count)];
+            monsterCards[i] = Engine.MonsterCardsDataBase[random.Next(0, Engine.MonsterCardsDataBase.Count)].Clone();
 
             for (int j = 0; j < monsterCards.Length; j++)
             {
-                powerCards[i * 4 + j] = Engine.PowerCardsDataBase[random.Next(0, Engine.PowerCardsDataBase.Count)];
+                powerCards[i * 4 + j] = Engine.PowerCardsDataBase[random.Next(0, Engine.PowerCardsDataBase.Count)].Clone();
                 asociations.Add(powerCards[i * 4 + j], i);
             }
         }

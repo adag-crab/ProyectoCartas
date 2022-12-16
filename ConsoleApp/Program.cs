@@ -8,7 +8,7 @@ public class Program
         Engine.LoadCards();
 
         while (true)
-        {
+        {/*
             Deck[] decks = new Deck[2];
 
            
@@ -18,12 +18,12 @@ public class Program
 
                 for (int j = 0; j < 3; j++)
                 {
-                    b[j] = Engine.MonsterCardsDataBase[j];
+                    b[j] = Engine.MonsterCardsDataBase[j].Clone();
 
                     for (int k = 0; k < 4; k++)
                     {
-                        powerCards[j * 4 + k] = Engine.PowerCardsDataBase[j * 4 + k];
-                        asociations.Add(Engine.PowerCardsDataBase[j * 4 + k], 0);
+                        powerCards[j * 4 + k] = Engine.PowerCardsDataBase[j * 4 + k].Clone();
+                        asociations.Add(powerCards[j * 4 + k], 0);
                     }
                 }
 
@@ -31,25 +31,22 @@ public class Program
 
             for (int j = 0; j < 3; j++)
             {
-                b[j] = Engine.MonsterCardsDataBase[j].Clone() as MonsterCard;
+                b[j] = Engine.MonsterCardsDataBase[j].Clone();
 
                 for (int k = 0; k < 4; k++)
                 {
-                    powerCards[j * 4 + k] = Engine.PowerCardsDataBase[j * 4 + k];
+                    powerCards[j * 4 + k] = Engine.PowerCardsDataBase[j * 4 + k].Clone();
                     //asociations.Add(Engine.PowerCardsDataBase[j * 4 + k], 0);
                 }
             }
 
             decks[1] = new Deck(b, powerCards, asociations);
-
+            */
 
 
 
             ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-
-
-
+            
 
 
             Console.Clear();
@@ -72,7 +69,7 @@ public class Program
                         players[i] = true;
                     }
 
-                    StarNewGame(players, decks /*DeckCreator.CreateAllDecks(players)*/);
+                    StarNewGame(players,DeckCreator.CreateAllDecks(players));
                     break;
                 case "2":
                     CardCreator.CardMain();

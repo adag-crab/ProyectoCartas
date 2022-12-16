@@ -104,18 +104,19 @@ public class Npc
         {
             if (i != playerNumber)
             {
-                Game NewGame = game.Clone() as Game;
+                Game NewGame = game.Clone();
 
-                Console.WriteLine(NewGame.board.hands[1].Count);
-                Console.WriteLine(game.board.hands[1].Count);
+                MonsterCard[] AdversaryMonster = NewGame.decks[i].monsters;
 
-
-                MonsterCard[] AdversaryMonster = NewGame.decks[playerNumber].monsters;
-
+                
                 for(int j = 0; j < cards.Length; j++)
                 {
                     NewGame.PlayCard(NewGame.board.hands[playerNumber][cards[j]], playerNumber, i);
                 }
+
+                Console.WriteLine(NewGame.board.hands[i].Count);
+                Console.WriteLine(game.board.hands[i].Count);
+
 
                 int TotalLife = AdversaryMonster[0].lifePoints + AdversaryMonster[1].lifePoints + AdversaryMonster[2].lifePoints;
                 

@@ -21,18 +21,16 @@ public abstract class Card
 		this.programmerDescription = programmerDescription;
 		this.imageURL = imageURL;
     }
-
-	
-
 }
-public class PowerCard : Card, IClonable
+public class PowerCard : Card
 {
 	public int activationEnergy { get; private set;}
 	public PowerCard(int id, string name, Engine.Types type, string publicDescription, string programmerDescription, string imageURL, int ActivationEnergy) : base(id, name, type, publicDescription, programmerDescription, imageURL)
 	{
 		this.activationEnergy = ActivationEnergy;
 	}
-	public object Clone()
+	
+	public PowerCard Clone()
     {
 		return new PowerCard(
 			this.id,
@@ -56,13 +54,12 @@ public class MonsterCard : Card
 		this.attackPoints = attackPoints;
 		this.lifePoints = lifePoints;
     }
-
 	public void UpdateLifePoints(int points)
     {
 		lifePoints += points;
 		if(lifePoints < 0) lifePoints = 0;
     }
-	public object Clone()
+	public MonsterCard Clone()
 	{
 		return new MonsterCard(
 			this.id,

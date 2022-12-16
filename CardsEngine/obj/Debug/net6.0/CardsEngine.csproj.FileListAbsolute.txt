@@ -34,3 +34,27 @@ C:\Users\YUNIER\Desktop\ProyectoCartas2\Copia ProyectoCartas\CardsEngine\obj\Deb
 C:\Users\YUNIER\Desktop\ProyectoCartas2\Copia ProyectoCartas\CardsEngine\obj\Debug\net6.0\CardsEngine.dll
 C:\Users\YUNIER\Desktop\ProyectoCartas2\Copia ProyectoCartas\CardsEngine\obj\Debug\net6.0\ref\CardsEngine.dll
 C:\Users\YUNIER\Desktop\ProyectoCartas2\Copia ProyectoCartas\CardsEngine\obj\Debug\net6.0\CardsEngine.pdb
+C:\Users\YUNIER\Desktop\ProyectoCartas2\ProyectoCartas(actual)\CardsEngine\bin\Debug\net6.0\CardsEngine.deps.json
+C:\Users\YUNIER\Desktop\ProyectoCartas2\ProyectoCartas(actual)\CardsEngine\bin\Debug\net6.0\CardsEngine.dll
+C:\Users\YUNIER\Desktop\ProyectoCartas2\ProyectoCartas(actual)\CardsEngine\bin\Debug\net6.0\ref\CardsEngine.dll
+C:\Users\YUNIER\Desktop\ProyectoCartas2\ProyectoCartas(actual)\CardsEngine\bin\Debug\net6.0\CardsEngine.pdb
+C:\Users\YUNIER\Desktop\ProyectoCartas2\ProyectoCartas(actual)\CardsEngine\obj\Debug\net6.0\CardsEngine.csproj.AssemblyReference.cache
+C:\Users\YUNIER\Desktop\ProyectoCartas2\ProyectoCartas(actual)\CardsEngine\obj\Debug\net6.0\CardsEngine.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\YUNIER\Desktop\ProyectoCartas2\ProyectoCartas(actual)\CardsEngine\obj\Debug\net6.0\CardsEngine.AssemblyInfoInputs.cache
+C:\Users\YUNIER\Desktop\ProyectoCartas2\ProyectoCartas(actual)\CardsEngine\obj\Debug\net6.0\CardsEngine.AssemblyInfo.cs
+C:\Users\YUNIER\Desktop\ProyectoCartas2\ProyectoCartas(actual)\CardsEngine\obj\Debug\net6.0\CardsEngine.csproj.CoreCompileInputs.cache
+C:\Users\YUNIER\Desktop\ProyectoCartas2\ProyectoCartas(actual)\CardsEngine\obj\Debug\net6.0\CardsEngine.dll
+C:\Users\YUNIER\Desktop\ProyectoCartas2\ProyectoCartas(actual)\CardsEngine\obj\Debug\net6.0\ref\CardsEngine.dll
+C:\Users\YUNIER\Desktop\ProyectoCartas2\ProyectoCartas(actual)\CardsEngine\obj\Debug\net6.0\CardsEngine.pdb
+E:\Escuela\Programación\ProyectoCartas(actual)\CardsEngine\bin\Debug\net6.0\CardsEngine.deps.json
+E:\Escuela\Programación\ProyectoCartas(actual)\CardsEngine\bin\Debug\net6.0\CardsEngine.dll
+E:\Escuela\Programación\ProyectoCartas(actual)\CardsEngine\bin\Debug\net6.0\ref\CardsEngine.dll
+E:\Escuela\Programación\ProyectoCartas(actual)\CardsEngine\bin\Debug\net6.0\CardsEngine.pdb
+E:\Escuela\Programación\ProyectoCartas(actual)\CardsEngine\obj\Debug\net6.0\CardsEngine.csproj.AssemblyReference.cache
+E:\Escuela\Programación\ProyectoCartas(actual)\CardsEngine\obj\Debug\net6.0\CardsEngine.GeneratedMSBuildEditorConfig.editorconfig
+E:\Escuela\Programación\ProyectoCartas(actual)\CardsEngine\obj\Debug\net6.0\CardsEngine.AssemblyInfoInputs.cache
+E:\Escuela\Programación\ProyectoCartas(actual)\CardsEngine\obj\Debug\net6.0\CardsEngine.AssemblyInfo.cs
+E:\Escuela\Programación\ProyectoCartas(actual)\CardsEngine\obj\Debug\net6.0\CardsEngine.csproj.CoreCompileInputs.cache
+E:\Escuela\Programación\ProyectoCartas(actual)\CardsEngine\obj\Debug\net6.0\CardsEngine.dll
+E:\Escuela\Programación\ProyectoCartas(actual)\CardsEngine\obj\Debug\net6.0\ref\CardsEngine.dll
+E:\Escuela\Programación\ProyectoCartas(actual)\CardsEngine\obj\Debug\net6.0\CardsEngine.pdb

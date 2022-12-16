@@ -5,7 +5,7 @@ namespace CardsEngine;
  *  EL estado del tablero
  */
 
-public class Game : IClonable
+public class Game
 {
     
     public Deck[] decks { get; private set; }
@@ -18,23 +18,21 @@ public class Game : IClonable
     public List<Npc> npcs { get; private set; }
 
 
-    public object Clone()
+    public Game Clone()
     {
-        Game game = new Game(players,200, decks);
+        Deck[] newDecks = new Deck[decks.Length];
 
-        game.board = board;
+        for (int i = 0; i < decks.Length; i++)
+        {
+            newDecks[i] = decks[i].Clone();
+        }
 
-        /*
-        game.decks = this.decks;
-        game.players = this.players;
-        game.playersLife = this.playersLife;
-        game.energyPoints = this.energyPoints;
-        game.turn = this.turn;
-        game.board = this.board; 
-        game.losers = this.losers;
-        game.npcs = this.npcs;
-        */
-        return game;
+        Game newgame = new Game(this.players,200,newDecks);
+
+        newgame.energyPoints = this.energyPoints;
+        newgame.board = this.board.Clone(decks);
+
+        return newgame;
     }
 
 
@@ -59,7 +57,7 @@ public class Game : IClonable
         {
             if(!players[i])
             {
-             npcs.Add(new Npc(i));
+                npcs.Add(new Npc(i));
             }
         }
 
@@ -113,7 +111,6 @@ public class Game : IClonable
 public class Board
 {
     
-
     public List<PowerCard>[] hands { get; private set; }
     public MonsterCard[,] monsters { get; private set; }
 
@@ -129,4 +126,35 @@ public class Board
             hands[playerIndex] = Engine.GetInitialHand(decks[playerIndex]);  // reparte la mano incicial
         }
     }
+
+    public Board Clone(Deck[] decks)
+    {
+        
+        Board b = new Board(decks.Length, decks);
+        
+        List<PowerCard>[] newHands = new List<PowerCard>[decks.Length];
+
+        for (int j = 0; j < decks.Length; j++)
+        { 
+            for (int i = 0; i < b.hands[j].Count; i++)
+            {
+                newHands[j].Add(b.hands[j][i].Clone());
+            }
+        }
+        b.hands = newHands;
+
+        MonsterCard[,] newMonsters = new MonsterCard[decks.Length, 3];
+
+        for(int i = 0; i < decks.Length; i++)
+        {
+            for(int j =0; j < 3; j++)
+            {
+                newMonsters[i,j] = b.monsters[i,j].Clone();
+            }
+        }
+        b.monsters = newMonsters;   
+
+        return b;
+    }
+
 }
