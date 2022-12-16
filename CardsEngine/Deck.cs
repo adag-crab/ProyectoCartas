@@ -16,21 +16,20 @@ public class Deck
     public Deck Clone()
     {
         MonsterCard[] newMonsters = new MonsterCard[this.monsters.Length];
-
-        for (int i = 0; i < monsters.Length; i++)
-        {
-            newMonsters[i] = this.monsters[i].Clone();
-        }
-
         PowerCard[] newPowers = new PowerCard[this.powers.Length];
         Dictionary<PowerCard, int> newAsociation = new Dictionary<PowerCard, int>(); //esta mal
 
-        for(int i =0; i<newPowers.Length; i++)
+        for (int monsterIndex = 0; monsterIndex < this.monsters.Length; monsterIndex++)
         {
-            newPowers[i] = this.powers[i].Clone();
-
-
+            newMonsters[monsterIndex] = this.monsters[monsterIndex].Clone();
         }
+
+        for(int powerIndex = 0; powerIndex < this.powers.Length; powerIndex++)
+        {
+            newPowers[powerIndex] = this.powers[powerIndex].Clone();
+            newAsociation.Add(newPowers[powerIndex], this.associations[this.powers[powerIndex]]);
+        }
+
 
         return new Deck(newMonsters, newPowers, newAsociation);
     }    

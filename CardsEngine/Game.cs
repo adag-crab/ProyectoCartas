@@ -7,11 +7,9 @@ namespace CardsEngine;
 
 public class Game
 {
-    
     public Deck[] decks { get; private set; }
     public bool[] players { get; private set; } //true (real Players) False NPC
     public int turn { get; private set; }
-    public int[] playersLife { get; private set; }
     public int[] energyPoints { get; private set; }
     public Board board { get; private set; }
     public bool[] losers { get; private set; }
@@ -22,17 +20,21 @@ public class Game
     {
         Deck[] newDecks = new Deck[decks.Length];
 
-        for (int i = 0; i < decks.Length; i++)
+        for (int deckIndex = 0; deckIndex < decks.Length; deckIndex++)
         {
-            newDecks[i] = decks[i].Clone();
+            newDecks[deckIndex] = decks[deckIndex].Clone();
         }
 
-        Game newgame = new Game(this.players,200,newDecks);
+        Game newGame = new Game(this.players, 200, newDecks);
 
-        newgame.energyPoints = this.energyPoints;
-        newgame.board = this.board.Clone(decks);
+        newGame.energyPoints = Engine.Clone<int>(this.energyPoints);
+        newGame.losers = Engine.Clone<bool>(this.losers);
+        newGame.npcs = Engine.Clone<Npc>(this.npcs.ToArray()).ToList<Npc>(); //no se si hay que clonar los npc
 
-        return newgame;
+        newGame.turn = this.turn;
+        newGame.board = this.board.Clone(decks);
+
+        return newGame;
     }
 
 
@@ -45,19 +47,19 @@ public class Game
 
 
         this.energyPoints = new int[players.Length]; // incializar los puntos de energia de cada juagdor 
-        for (int i = 0; i < players.Length; i++) this.energyPoints[i] = energyPoints;
+        for (int playerIndex = 0; playerIndex < players.Length; playerIndex++) this.energyPoints[playerIndex] = energyPoints;
 
         //this.playersLife = new int[playersAmount];
         //for (int i = 0; i < playersAmount; i++) this.playersLife[i] = playersLife;
 
         this.board = new Board(players.Length, decks);
         losers = new bool[players.Length];
-        
-        for(int i = 0;i < players.Length;i++)
+
+        for (int playerIndex = 0; playerIndex < players.Length; playerIndex++)
         {
-            if(!players[i])
+            if (!players[playerIndex])
             {
-                npcs.Add(new Npc(i));
+                npcs.Add(new Npc(playerIndex));
             }
         }
 
@@ -66,7 +68,7 @@ public class Game
     public void PlayCard(PowerCard power, int player, int targetPlayer)
     {
         int targetMonster = 0;
-        while(Engine.MonsterDied(targetPlayer, targetMonster, board.monsters))
+        while (Engine.MonsterDied(targetPlayer, targetMonster, board.monsters))
         {
             targetMonster++;
         }
@@ -99,18 +101,18 @@ public class Game
     {
         losers[player] = true;
     }
-    
+
     public bool CanPlay(PowerCard cardToPlay, int player)
     {
         return cardToPlay.activationEnergy < this.energyPoints[player];
     }
 
-  
+
 }
 
 public class Board
 {
-    
+
     public List<PowerCard>[] hands { get; private set; }
     public MonsterCard[,] monsters { get; private set; }
 
@@ -119,9 +121,11 @@ public class Board
         this.hands = new List<PowerCard>[playersAmount];
         this.monsters = new MonsterCard[playersAmount, 3];
 
-        for (int playerIndex = 0; playerIndex < playersAmount; playerIndex++){ //poner los mosntruos en el campo
-            for(int monsterIndex = 0; monsterIndex < 3; monsterIndex++) {
-                monsters[playerIndex,monsterIndex] = decks[playerIndex].monsters[monsterIndex]; 
+        for (int playerIndex = 0; playerIndex < playersAmount; playerIndex++)
+        { //poner los mosntruos en el campo
+            for (int monsterIndex = 0; monsterIndex < 3; monsterIndex++)
+            {
+                monsters[playerIndex, monsterIndex] = decks[playerIndex].monsters[monsterIndex];
             }
             hands[playerIndex] = Engine.GetInitialHand(decks[playerIndex]);  // reparte la mano incicial
         }
@@ -129,32 +133,28 @@ public class Board
 
     public Board Clone(Deck[] decks)
     {
-        
-        Board b = new Board(decks.Length, decks);
-        
-        List<PowerCard>[] newHands = new List<PowerCard>[decks.Length];
+        Board newBoard = new Board(this.hands.Length, decks);
 
-        for (int j = 0; j < decks.Length; j++)
-        { 
-            for (int i = 0; i < b.hands[j].Count; i++)
-            {
-                newHands[j].Add(b.hands[j][i].Clone());
-            }
-        }
-        b.hands = newHands;
-
+        List<PowerCard>[] newHands = new List<PowerCard>[this.hands.Length];
         MonsterCard[,] newMonsters = new MonsterCard[decks.Length, 3];
 
-        for(int i = 0; i < decks.Length; i++)
+        for (int playerIndex = 0; playerIndex < this.hands.Length; playerIndex++)
         {
-            for(int j =0; j < 3; j++)
+            for (int card = 0; card < this.hands[playerIndex].Count; card++)
             {
-                newMonsters[i,j] = b.monsters[i,j].Clone();
+                newHands[playerIndex][card] = this.hands[playerIndex][card].Clone();
             }
-        }
-        b.monsters = newMonsters;   
+            for (int monsterIndex = 0; monsterIndex < 3; monsterIndex++)
+            {
+                newMonsters[playerIndex, monsterIndex] = newBoard.monsters[playerIndex, monsterIndex].Clone();
+            }
 
-        return b;
+        }
+
+        newBoard.hands = newHands;
+        newBoard.monsters = newMonsters;
+
+        return newBoard;
     }
 
 }

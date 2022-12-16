@@ -8,7 +8,8 @@ public class a
     public MonsterCard[] monsterCards { get; set; }
 }
 
-public static class Engine {
+public static class Engine
+{
 
     public static List<MonsterCard> MonsterCardsDataBase = new List<MonsterCard>();
     public static List<PowerCard> PowerCardsDataBase = new List<PowerCard>();
@@ -21,6 +22,7 @@ public static class Engine {
         humano,
         mago
     };
+
     public enum States
     {
         muerto,
@@ -30,18 +32,17 @@ public static class Engine {
         normal
     };
 
-
     public static void LoadCards()
     {
-        string[] directory = Directory.GetFiles(Path.Join("..", Path.Join("..", Path.Join("..",  Path.Join("..",Path.Join("Cartas", "MonsterCards"))))));
-        foreach(string card in directory)
+        string[] directory = Directory.GetFiles(Path.Join("..", Path.Join("..", Path.Join("..", Path.Join("..", Path.Join("Cartas", "MonsterCards"))))));
+        foreach (string card in directory)
         {
             string json = File.ReadAllText(card);
             MonsterCard deserializedCard = JsonSerializer.Deserialize<MonsterCard>(json);
             MonsterCardsDataBase.Add(deserializedCard);
         }
 
-        directory = Directory.GetFiles(Path.Join("..", Path.Join("..", Path.Join("..",  Path.Join("..",Path.Join("Cartas", "PowerCards"))))));
+        directory = Directory.GetFiles(Path.Join("..", Path.Join("..", Path.Join("..", Path.Join("..", Path.Join("Cartas", "PowerCards"))))));
         foreach (string card in directory)
         {
 
@@ -65,62 +66,63 @@ public static class Engine {
         File.WriteAllText(path, json);
     }
 
-        /*public static void LoadCards()
+    /*public static void LoadCards()
+    {
+        string monsterCardsJson = File.ReadAllText(Path.Join("..", Path.Join("..", Path.Join("..", Path.Join("..",Path.Join("CardsEngine", "MonsterCards.json"))))));
+        string powerCardsJson = File.ReadAllText(Path.Join("..", Path.Join("..", Path.Join("..", Path.Join("..", Path.Join("CardsEngine", "PowerCards.json"))))));
+
+
+        a monsterCards = JsonSerializer.Deserialize<a>(monsterCardsJson);
+        /// PowerCard[] powerCards = JsonSerializer.Deserialize<PowerCard[]>(powerCardsJson);   
+
+        a aasd = (a)monsterCards;
+
+
+        for(int i = 0; i < aasd.monsterCards.Length ; i++)
         {
-            string monsterCardsJson = File.ReadAllText(Path.Join("..", Path.Join("..", Path.Join("..", Path.Join("..",Path.Join("CardsEngine", "MonsterCards.json"))))));
-            string powerCardsJson = File.ReadAllText(Path.Join("..", Path.Join("..", Path.Join("..", Path.Join("..", Path.Join("CardsEngine", "PowerCards.json"))))));
-
-
-            a monsterCards = JsonSerializer.Deserialize<a>(monsterCardsJson);
-            /// PowerCard[] powerCards = JsonSerializer.Deserialize<PowerCard[]>(powerCardsJson);   
-
-            a aasd = (a)monsterCards;
-
-
-            for(int i = 0; i < aasd.monsterCards.Length ; i++)
-            {
-                MonsterCardsDataBase.Add(aasd.monsterCards[i]);
-            }
-          /*  for(int i = 0; i < powerCards.Length; i++)
-            {
-                PowerCardsDataBase.Add(powerCards[i]);
-            }
+            MonsterCardsDataBase.Add(aasd.monsterCards[i]);
         }
-        public static void UpdateMonsterCardsJson()
+      /*  for(int i = 0; i < powerCards.Length; i++)
         {
-            string monsterCardsJson = JsonSerializer.Serialize(MonsterCardsDataBase.ToArray());
-            File.WriteAllText("../../../../CardsEngine/MonsterCards.json", monsterCardsJson);
-            Console.WriteLine("Listo");
-            Console.ReadLine();
+            PowerCardsDataBase.Add(powerCards[i]);
         }
-        public static void UpdatePowerCardsJson()
-        {
-            string powerCardsJson = JsonSerializer.Serialize(PowerCardsDataBase.ToArray());
-            File.WriteAllText(Path.Join("..", "PowerCards.json"), powerCardsJson);
-        }*/
-        public static List<PowerCard> GetInitialHand(Deck deck)
+    }
+    public static void UpdateMonsterCardsJson()
+    {
+        string monsterCardsJson = JsonSerializer.Serialize(MonsterCardsDataBase.ToArray());
+        File.WriteAllText("../../../../CardsEngine/MonsterCards.json", monsterCardsJson);
+        Console.WriteLine("Listo");
+        Console.ReadLine();
+    }
+    public static void UpdatePowerCardsJson()
+    {
+        string powerCardsJson = JsonSerializer.Serialize(PowerCardsDataBase.ToArray());
+        File.WriteAllText(Path.Join("..", "PowerCards.json"), powerCardsJson);
+    }*/
+    public static List<PowerCard> GetInitialHand(Deck deck)
     {
         List<PowerCard> hand = new List<PowerCard>();
 
-        for(int i = 0; i < 3; i++)
+        for (int i = 0; i < 3; i++)
         {
             hand.Add(Draw(deck));
         }
 
         return hand;
     }
+
     public static PowerCard Draw(Deck deck)
     {
         Random random = new Random();
         return deck.powers[random.Next(deck.powers.Length)];
     }
-    
+
     public static int PlayerWins(bool[] losers)
     {
         int stillPlaying = 0;
         int winner = -1;
 
-        for(int i = 0; i < losers.Length; i++)
+        for (int i = 0; i < losers.Length; i++)
         {
             if (!losers[i])
             {
@@ -134,24 +136,38 @@ public static class Engine {
     }
     public static bool PlayerLose(int player, MonsterCard[,] monsters)
     {
-        for(int monster = 0; monster < 3; monster++)
+        for (int monster = 0; monster < 3; monster++)
         {
-            if(monsters[player, monster].lifePoints != 0)
+            if (monsters[player, monster].lifePoints != 0)
             {
                 return false;
             }
         }
 
         return true;
-    } 
+    }
+    
     public static bool MonsterDied(int targetPlayer, int targetMonster, MonsterCard[,] monsters)
     {
         if (monsters[targetPlayer, targetMonster].lifePoints <= 0) return true;
         return false;
     }
+    
     public static void GameOver(int winner)
     {
 
+    }
+
+    public static T[] Clone<T>(T[] array)
+    {
+        T[] newArray = new T[array.Length];
+        
+        for(int i = 0; i < array.Length; i++)
+        {
+            newArray[i] = array[i];
+        }
+
+        return newArray;
     }
     /*public Attack(MonsterCard )
     {

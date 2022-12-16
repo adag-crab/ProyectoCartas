@@ -37,7 +37,7 @@ public static class DeckCreator
                 Console.WriteLine(j + " Name: " + Engine.MonsterCardsDataBase[j - 1].name + " Type: " + Engine.MonsterCardsDataBase[j - 1].type.ToString() + " Atk: " + Engine.MonsterCardsDataBase[j - 1].attackPoints + " HP: " + Engine.MonsterCardsDataBase[j - 1].lifePoints);
             }
 
-            int m = int.Parse(Console.ReadLine());
+            int m = int.Parse(Console.ReadLine());//arreglar aqui
 
             
             monsterCards[i] = Engine.MonsterCardsDataBase[m-1].Clone();
@@ -56,7 +56,7 @@ public static class DeckCreator
                 int p = int.Parse(Console.ReadLine());
 
                 powerCards[i * 4 + j] = Engine.PowerCardsDataBase[p-1].Clone();
-                asociations.Add(Engine.PowerCardsDataBase[p-1], i);
+                asociations.Add(powerCards[i * 4 + j], i);
             }
         }
 

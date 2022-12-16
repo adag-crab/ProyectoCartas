@@ -1,9 +1,5 @@
 namespace CardsEngine;
 
-public interface IClonable
-{
-	public object Clone();
-}
 public abstract class Card
 { 
 	public int id { get; set; }    // para que tener id si el diccionario guarda el id
