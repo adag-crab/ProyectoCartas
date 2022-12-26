@@ -7,58 +7,127 @@ namespace CardsEngine;
 
 public class Game
 {
-    
+    public bool[] players { get; private set; } //true (real Players) False NPC
     public Deck[] decks { get; private set; }
-    public int playersAmount { get; private set; }
+
     public int turn { get; private set; }
-    public int[] playersLife { get; private set; }
+    public int currentPlayer { get; private set; }
+
     public int[] energyPoints { get; private set; }
-    public Board board { get; private set; }
     public bool[] losers { get; private set; }
 
+    public Board board { get; private set; }
+    public List<Npc> npcs { get; private set; }
 
-    public Game(int playersAmount, int energyPoints, Deck[] decks)
+    public Game(bool[] players, int energyPoints, Deck[] decks)
     { // inciar el juego 
-        this.playersAmount = playersAmount;
-        this.turn = 1;
+        this.players = players;
         this.decks = decks;
 
-        this.energyPoints = new int[playersAmount]; // incializar los puntos de energia de cada juagdor 
-        for (int i = 0; i < playersAmount; i++) this.energyPoints[i] = energyPoints;
+        this.turn = 1;
+        this.currentPlayer = -1;
 
-        //this.playersLife = new int[playersAmount];
-        //for (int i = 0; i < playersAmount; i++) this.playersLife[i] = playersLife;
+        this.losers = new bool[players.Length];
+        this.energyPoints = new int[players.Length]; // incializar los puntos de energia de cada juagdor 
 
-        this.board = new Board(playersAmount, decks);
-        losers = new bool[playersAmount];
+        for (int playerIndex = 0; playerIndex < players.Length; playerIndex++) this.energyPoints[playerIndex] = energyPoints;
+
+        this.board = new Board(players.Length, decks);
+        this.npcs = new List<Npc>();
+
+        for (int playerIndex = 0; playerIndex < players.Length; playerIndex++)
+        {
+            if (!players[playerIndex])
+            {
+                npcs.Add(new Npc(playerIndex));
+            }
+        }
+
+
     }
-    public void PlayCard(PowerCard power, int player, int targetPlayer)
+
+    public Game Clone()
     {
+        Game newGame = new Game(this.players, 200, this.decks);
+
+
+        Deck[] newDecks = new Deck[this.decks.Length];
+
+        for (int i = 0; i < this.decks.Length; i++)
+        {
+            newDecks[i] = this.decks[i].Clone();
+        }
+
+        newGame.energyPoints = Engine.Clone<int>(this.energyPoints);
+        newGame.losers = Engine.Clone<bool>(this.losers);
+        newGame.npcs = Engine.Clone<Npc>(this.npcs.ToArray()).ToList<Npc>(); //no se si hay que clonar los npc
+
+        newGame.turn = this.turn;
+        newGame.SetPlayer(this.currentPlayer);
+        newGame.board = this.board.Clone(decks);
+        newGame.decks = newDecks;
+        return newGame;
+    }
+
+    public bool PlayCard(int handIndex, int player, int targetPlayer) // Annadir el hand index para eliminarla para no eliminar el primero que aparezca
+    {
+
+
+        PowerCard power = this.decks[player].powers[this.board.hands[player][handIndex]];
+
+        // Seleccionar al monstruo al que se ataca pues siempre se ataca al primero de la foramcion del enemigo
+
         int targetMonster = 0;
-        while(Engine.MonsterDied(targetPlayer, targetMonster, board.monsters))
+
+        while (Engine.MonsterDied(targetPlayer, targetMonster, board.monsters) && targetMonster < 2)
         {
             targetMonster++;
         }
 
-        Reader a = new Reader();
-        a.Parser(power.programmerDescription, board.monsters[player, 0], board.monsters[targetPlayer, targetMonster]);
+        // Interpretacion del codigo de la carta
 
-        if (Engine.MonsterDied(targetPlayer, targetMonster, board.monsters))
+        if (!CardCodeProcessor.ProcessCard(this, power, this.board.monsters[player, this.decks[player].associations[power]], this.board.monsters[targetPlayer, targetMonster]))
         {
-            board.monsters[targetPlayer, targetMonster].state = "Muerto";
+            return false;
         }
-        UpdateEnergy(-1 * power.activationEnergy, player);
-        board.hands[player].Remove(power);
+        else
+        {
+            // Comprobar si el monstruo se murio
+
+            if (Engine.MonsterDied(targetPlayer, targetMonster, board.monsters))
+            {
+                board.monsters[targetPlayer, targetMonster].state = "Muerto";
+            }
+
+            UpdateEnergy(-1 * power.activationEnergy, player);
+            board.hands[player].RemoveAt(handIndex);
+        }
+
+        return true;
     }
+
     public void UpdateTurn()
     {
-        turn++;
+        this.turn++;
+        this.currentPlayer = -1;
     }
-    public void TurnDraw(int player)
+
+    public bool NextPlayer()
     {
-        board.hands[player].Add(Engine.Draw(decks[player]));
-        board.hands[player].Add(Engine.Draw(decks[player]));
+        this.currentPlayer++;
+        return this.currentPlayer < this.players.Length;
     }
+
+    public void SetPlayer(int newPlayerIndex)
+    {
+        if(newPlayerIndex < this.players.Length && newPlayerIndex >= 0) this.currentPlayer = newPlayerIndex;
+    }
+    public void TurnDraw()
+    {
+        board.hands[currentPlayer].Add(Engine.Draw(decks[currentPlayer]));
+        board.hands[currentPlayer].Add(Engine.Draw(decks[currentPlayer]));
+    }
+
     public void UpdateEnergy(int amount, int player)
     {
         energyPoints[player] += amount;
@@ -68,30 +137,9 @@ public class Game
     {
         losers[player] = true;
     }
-    
+
     public bool CanPlay(PowerCard cardToPlay, int player)
     {
         return cardToPlay.activationEnergy < this.energyPoints[player];
-    }
-
-  
-}
-
-public class Board
-{
-    public List<PowerCard>[] hands { get; private set; }
-    public MonsterCard[,] monsters { get; private set; }
-
-    public Board(int playersAmount, Deck[] decks)
-    {
-        this.hands = new List<PowerCard>[playersAmount];
-        this.monsters = new MonsterCard[playersAmount, 3];
-
-        for (int playerIndex = 0; playerIndex < playersAmount; playerIndex++){ //poner los mosntruos en el campo
-            for(int monsterIndex = 0; monsterIndex < 3; monsterIndex++) {
-                monsters[playerIndex,monsterIndex] = decks[playerIndex].monsters[monsterIndex]; 
-            }
-            hands[playerIndex] = Engine.GetInitialHand(decks[playerIndex]);  // reparte la mano incicial
-        }
     }
 }
