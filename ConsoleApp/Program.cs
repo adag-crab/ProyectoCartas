@@ -9,64 +9,57 @@ public class Program
 
         while (true)
         {
-            Deck[] decks = new Deck[2];
-
-            for (int i = 0; i < decks.Length; i++)
-            {
-                Dictionary<PowerCard, int> asociations = new Dictionary<PowerCard, int>();
-                MonsterCard[] a = new MonsterCard[3];
-                PowerCard[] powerCards = new PowerCard[12];
-
-                
-
-                for (int j = 0; j < 3; j++)
-                {
-                    a[j] = Engine.MonsterCardsDataBase[j];
-
-                    
-
-                    for (int k = 0; k < 4; k++)
-                    {
-                        powerCards[j * 4 + k] = Engine.PowerCardsDataBase[j * 4 + k];
-                        asociations.Add(Engine.PowerCardsDataBase[j * 4 + k], i);
-                    }
-                }
-
-                decks[i] = new Deck(a,powerCards, asociations);
-
-            }
             Console.Clear();
             Console.WriteLine("Seleccione una opcion:\n1. Inciar Duelo \n2. Crear Cartas\n3. Salir");
             string option = Console.ReadLine();
             switch (option)
             {
                 case "1":
-                    Console.Clear();
-                    Console.WriteLine("Cuantos Jugadores Reales");
-                    int players = int.Parse(Console.ReadLine());
-                    Console.WriteLine("Cuantos Jugadores Npc");
-                    int npc = int.Parse(Console.ReadLine());
+                    MessagePrinter messagePrinter = (game) =>
+                    {
+                        Console.Clear();
+                        Console.WriteLine("Cuantos Jugadores Reales");
+                    };
+                    int realplayers = Program.OptionValidator((0, int.MaxValue), messagePrinter);
 
-                    StarNewGame(players + npc, decks /*DeckCreator.CreateAllDecks(players, npc)*/);
+                    messagePrinter = (game) =>
+                    {
+                        Console.Clear();
+                        Console.WriteLine("Cuantos Jugadores Npc");
+                    };
+                    int npc = Program.OptionValidator((0, int.MaxValue), messagePrinter);
+
+                    bool[] players = new bool[realplayers + npc];
+
+                    for (int i = 0; i < realplayers; i++)
+                    {
+                        players[i] = true;
+                    }
+
+                    StarNewGame(players, DeckCreator.CreateAllDecks(players));
                     break;
+
                 case "2":
                     CardCreator.CardMain();
                     Console.Clear();
                     break;
+
                 case "3":
                     return;
+
                 default:
                     Console.Clear();
-                    Console.WriteLine("esa opcion es un mojon");
+                    Console.WriteLine("Opcion incorrecta vuelva a seleccionar");
                     string a = Console.ReadLine();
                     break;
             }
         }
     }
-    public static void StarNewGame(int playersAmount, Deck[] decks)
+
+    public static void StarNewGame(bool[] players, Deck[] decks)
     {
-        Game game = new Game(playersAmount, 200, decks);
-        
+        Game game = new Game(players, 200, decks);
+
         int winner = -1;
         while (winner == -1)
         {
@@ -76,93 +69,191 @@ public class Program
 
         Engine.GameOver(winner);
     }
+
     public static void StartTurn(Game game)
     {
-        for (int player = 0; player < game.playersAmount; player++)
+        while (game.NextPlayer())
         {
-            if (!game.losers[player])
+            if (!game.losers[game.currentPlayer])
             {
-                game.UpdateEnergy(3,player);
-                game.TurnDraw(player);
-                ShowBoard(game, player);
+                game.UpdateEnergy(3, game.currentPlayer);
+                game.TurnDraw();
+                ShowBoard(game);
+                Play(game);
 
-                Play(player, game);
+                //Console.WriteLine(game.npcs.Count);
+                //Console.WriteLine(player);
+
                 if (Engine.PlayerWins(game.losers) != -1)
                 {
                     return;
                 }
             }
         }
+
         game.UpdateTurn();
     }
 
-    public static void Play(int player, Game game)
+    public static void Play(Game game)
     {
-        while (true) // Ver como va ha ser la parte visual y la logica de juego
+        if (!game.players[game.currentPlayer])    //chequear si quien juga es un npc
         {
-            Console.WriteLine("Selecione la carta");
-            int option = int.Parse(Console.ReadLine());
+            int RealPlayers = game.players.Length - game.npcs.Count;
 
-            if (option == 0) break;
+            int[] cardsToPlay = game.npcs[game.currentPlayer - RealPlayers].PlayTurn(game).Item1;
+            int targetPlayer = game.npcs[game.currentPlayer - RealPlayers].PlayTurn(game).Item2;
 
-            PowerCard cardToPLay = game.board.hands[player][option-1];
-            if (game.CanPlay(cardToPLay, player))
+            for (int i = 0; i < cardsToPlay.Length; i++)
             {
-
-                Console.WriteLine("A que jugador vas a atacar?");
-                int targetPlayer = int.Parse(Console.ReadLine());
-                if (player != targetPlayer)
+                if (!game.losers[targetPlayer])
                 {
-                    if (!game.losers[targetPlayer])
+                    if (!game.PlayCard(cardsToPlay[i], game.currentPlayer, targetPlayer))
                     {
-                        game.PlayCard(cardToPLay, player, targetPlayer);
+                        Console.WriteLine("No se cumplieron las condiciones para activar el efecto de la carta");
+                        Console.ReadLine();
+                    }
+                    ShowBoard(game);
+                    Console.WriteLine("Presione enter para la siguiente jugada");
+                    Console.ReadLine();
 
-                        if (Engine.PlayerLose(targetPlayer, game.board.monsters))
+                    if (Engine.PlayerLose(targetPlayer, game.board.monsters))
+                    {
+                        game.UpdateLosers(targetPlayer);
+                        Console.WriteLine("El player: " + targetPlayer + " perdio");
+                        Console.ReadLine();
+                    }
+
+                    if (Engine.PlayerWins(game.losers) != -1)
+                    {
+                        return;
+                    }
+                }
+            }
+        }
+        else
+        {
+            while (true) // Ver como va ha ser la parte visual y la logica de juego
+            {
+                MessagePrinter messagePrinter = (game) =>
+                {
+                    ShowBoard(game);
+                    Console.WriteLine("Selecione la carta");
+                };
+
+                int option = Program.OptionValidator((0, game.board.hands[game.currentPlayer].Count), messagePrinter, game);
+
+                if (option == 0) break;
+
+                PowerCard cardToPLay = game.decks[game.currentPlayer].powers[game.board.hands[game.currentPlayer][option - 1]];
+                if (game.CanPlay(cardToPLay, game.currentPlayer))
+                {
+                    messagePrinter = (game) =>
+                    {
+                        ShowBoard(game);
+                        Console.WriteLine("A que jugador vas a atacar?");
+                    };
+
+                    int targetPlayer = Program.OptionValidator((0, game.players.Length - 1), messagePrinter, game);
+
+                    if (game.currentPlayer != targetPlayer)
+                    {
+                        if (!game.losers[targetPlayer])
                         {
-                            game.UpdateLosers(targetPlayer);
-                            Console.WriteLine("El player: " + targetPlayer + " perdio");
+                            if (!game.PlayCard(option - 1, game.currentPlayer, targetPlayer))
+                            {
+                                Console.WriteLine("No se cumplieron las condiciones para activar el efecto de la carta");
+                                Console.ReadLine();
+                            }
+                            if (Engine.PlayerLose(targetPlayer, game.board.monsters))
+                            {
+                                game.UpdateLosers(targetPlayer);
+                                Console.WriteLine("El player: " + targetPlayer + " perdio");
+                                Console.ReadLine();
+                            }
+                            if (Engine.PlayerWins(game.losers) != -1)
+                            {
+                                return;
+                            }
+                        }
+                        else
+                        {
+                            Console.WriteLine("Ese jugador perdio no lo puedes atacar");
                             Console.ReadLine();
                         }
-                        if (Engine.PlayerWins(game.losers) != -1)
-                        {
-                            return;
-                        }
+                        ShowBoard(game);
                     }
                     else
                     {
-                        Console.WriteLine("Ese jugador perdio no lo puedes atacar");
-                        Console.ReadLine();
+                        Console.WriteLine("No te puedes atacar a ti mismo");
                     }
-                    ShowBoard(game, 0);
                 }
                 else
                 {
-                    Console.WriteLine("No te puedes atacar a ti mismo");
+                    Console.WriteLine("No tienes energia suficiente");
                 }
-            }
-            else
-            {
-                Console.WriteLine("No tienes energia suficiente");
             }
         }
     }
 
-    public static void ShowBoard(Game game, int player)
+    public static void ShowBoard(Game game)
     {
         Console.Clear();
-        Console.WriteLine("Energy Points: " + game.energyPoints[player] + "\tTurno: " + game.turn + "\tJugador: " + player);
-        for (int j = 0; j < 3; j++)
+        Console.WriteLine("Energy Points: " + game.energyPoints[game.currentPlayer] + "\tTurno: " + game.turn + "\tJugador: " + game.currentPlayer);
+        int currentI = 0;
+
+        while (currentI < game.players.Length)
         {
-            for (int i = 0; i < game.playersAmount; i++)
+            int _auxCurrentI = currentI;
+            for (int i = 0; i < 2 && currentI < game.players.Length; i++)
             {
-                Console.Write(game.board.monsters[i, j].name + " HP: " + game.board.monsters[i, j].lifePoints + " ATK: " + game.board.monsters[i, j].attackPoints +  "\t\t");
+                Console.Write("Player: " + currentI + "\t\t\t\t");
+                currentI++;
+            }
+            currentI = _auxCurrentI;
+
+            Console.WriteLine();
+            for (int j = 0; j < 3; j++)
+            {
+                _auxCurrentI = currentI;
+                for (int i = 0; i < 2 && currentI < game.players.Length; i++)
+                {
+                    Console.Write(game.board.monsters[currentI, j].name + " HP: " + game.board.monsters[currentI, j].lifePoints + " ATK: " + game.board.monsters[currentI, j].attackPoints + "\t\t");
+                    currentI++;
+                }
+                currentI = _auxCurrentI;
+                Console.WriteLine();
             }
             Console.WriteLine();
+
+            currentI++;
+            if (currentI < game.players.Length) currentI++;
+
         }
-        for(int i = 0; i < game.board.hands[player].Count; i++)
+
+        Console.WriteLine();
+
+        for (int i = 0; i < game.board.hands[game.currentPlayer].Count; i++)
         {
-            Console.WriteLine(i+1 + " " + game.board.hands[player][i].name);
+            Console.WriteLine(i + 1 + " " + game.decks[game.currentPlayer].powers[game.board.hands[game.currentPlayer][i]].name);
         }
-;
+    }
+
+    public delegate void MessagePrinter(Game? gmae);
+
+    public static int OptionValidator((int, int) range, MessagePrinter messagePrinter, Game? game = null)
+    {
+        messagePrinter(game); //Para poder actualizar la pantalla cada vez que se ejecute el metodo 
+
+        string readLine = Console.ReadLine();
+        int option;
+
+        if (!int.TryParse(readLine, out option) || option < range.Item1 || option > range.Item2)
+        {
+            Console.WriteLine("Su opcion es incorrecta, vuelva a selseccionar");
+            Console.ReadLine();
+
+            return OptionValidator(range, messagePrinter, game);
+        }
+        return option;
     }
 }

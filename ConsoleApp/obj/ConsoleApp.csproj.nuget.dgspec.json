@@ -1,27 +1,28 @@
 {
   "format": 1,
   "restore": {
-    "E:\\Escuela\\Programación\\ProyectoCartas\\ConsoleApp\\ConsoleApp.csproj": {}
+    "D:\\Programación\\ProyectoCartas-main\\ConsoleApp\\ConsoleApp.csproj": {}
   },
   "projects": {
-    "E:\\Escuela\\Programación\\ProyectoCartas\\CardsEngine\\CardsEngine.csproj": {
+    "D:\\Programación\\ProyectoCartas-main\\CardsEngine\\CardsEngine.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "E:\\Escuela\\Programación\\ProyectoCartas\\CardsEngine\\CardsEngine.csproj",
+        "projectUniqueName": "D:\\Programación\\ProyectoCartas-main\\CardsEngine\\CardsEngine.csproj",
         "projectName": "CardsEngine",
-        "projectPath": "E:\\Escuela\\Programación\\ProyectoCartas\\CardsEngine\\CardsEngine.csproj",
-        "packagesPath": "C:\\Users\\Myzkull\\.nuget\\packages\\",
-        "outputPath": "E:\\Escuela\\Programación\\ProyectoCartas\\CardsEngine\\obj\\",
+        "projectPath": "D:\\Programación\\ProyectoCartas-main\\CardsEngine\\CardsEngine.csproj",
+        "packagesPath": "C:\\Users\\Misael\\.nuget\\packages\\",
+        "outputPath": "D:\\Programación\\ProyectoCartas-main\\CardsEngine\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\Myzkull\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Misael\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "net6.0"
         ],
         "sources": {
-          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {}
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "net6.0": {
@@ -57,31 +58,32 @@
         }
       }
     },
-    "E:\\Escuela\\Programación\\ProyectoCartas\\ConsoleApp\\ConsoleApp.csproj": {
+    "D:\\Programación\\ProyectoCartas-main\\ConsoleApp\\ConsoleApp.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "E:\\Escuela\\Programación\\ProyectoCartas\\ConsoleApp\\ConsoleApp.csproj",
+        "projectUniqueName": "D:\\Programación\\ProyectoCartas-main\\ConsoleApp\\ConsoleApp.csproj",
         "projectName": "ConsoleApp",
-        "projectPath": "E:\\Escuela\\Programación\\ProyectoCartas\\ConsoleApp\\ConsoleApp.csproj",
-        "packagesPath": "C:\\Users\\Myzkull\\.nuget\\packages\\",
-        "outputPath": "E:\\Escuela\\Programación\\ProyectoCartas\\ConsoleApp\\obj\\",
+        "projectPath": "D:\\Programación\\ProyectoCartas-main\\ConsoleApp\\ConsoleApp.csproj",
+        "packagesPath": "C:\\Users\\Misael\\.nuget\\packages\\",
+        "outputPath": "D:\\Programación\\ProyectoCartas-main\\ConsoleApp\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\Myzkull\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Misael\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "net6.0"
         ],
         "sources": {
-          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {}
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "net6.0": {
             "targetAlias": "net6.0",
             "projectReferences": {
-              "E:\\Escuela\\Programación\\ProyectoCartas\\CardsEngine\\CardsEngine.csproj": {
-                "projectPath": "E:\\Escuela\\Programación\\ProyectoCartas\\CardsEngine\\CardsEngine.csproj"
+              "D:\\Programación\\ProyectoCartas-main\\CardsEngine\\CardsEngine.csproj": {
+                "projectPath": "D:\\Programación\\ProyectoCartas-main\\CardsEngine\\CardsEngine.csproj"
               }
             }
           }
