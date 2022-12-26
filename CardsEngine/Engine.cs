@@ -71,10 +71,19 @@ public static class Engine
         return hand;
     }
 
-    public static int Draw(Deck deck)
+    public static int Draw(Deck deck, int player = -1, Game game = null)
     {
         Random random = new Random();
-        return random.Next(deck.powers.Length);
+
+        int randomCard = random.Next(deck.powers.Length);
+        if (game != null)
+        {
+            while (game.board.monsters[player, game.decks[player].associations[game.decks[player].powers[randomCard]]].state == "Muerto")
+            {
+                randomCard = random.Next(deck.powers.Length);
+            }
+        }
+        return randomCard;
     }
 
     public static int PlayerWins(bool[] losers)
@@ -114,17 +123,31 @@ public static class Engine
         return false;
     }
 
+    public static void DeleteDeadMonsterPowerCards(int player, Game game)
+    {
+        List<int> _auxHand = new List<int>();
+        foreach (int PowerCardIndex in game.board.hands[player])
+        {
+            if (game.board.monsters[player, game.decks[player].associations[game.decks[player].powers[PowerCardIndex]]].state != "Muerto")
+            {
+                _auxHand.Add(PowerCardIndex);
+            }
+        }
+        game.board.hands[player] = _auxHand;
+    }
+
     public static void GameOver(int winner)
     {
 
     }
 
+
     //Funciones para las acciones del lenguaje
-    public static void ActionDraw(Game game, int amount) 
+    public static void ActionDraw(Game game, int amount)
     {
-        for(int i = 0; i < amount; i++)
+        for (int i = 0; i < amount; i++)
         {
-            game.board.hands[game.currentPlayer].Add(Draw(game.decks[game.currentPlayer]));
+            game.board.hands[game.currentPlayer].Add(Draw(game.decks[game.currentPlayer], game.currentPlayer, game));
         }
     }
 

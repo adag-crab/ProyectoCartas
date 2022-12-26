@@ -97,6 +97,7 @@ public class Game
             if (Engine.MonsterDied(targetPlayer, targetMonster, board.monsters))
             {
                 board.monsters[targetPlayer, targetMonster].state = "Muerto";
+                Engine.DeleteDeadMonsterPowerCards(targetPlayer, this);
             }
 
             UpdateEnergy(-1 * power.activationEnergy, player);
@@ -124,8 +125,8 @@ public class Game
     }
     public void TurnDraw()
     {
-        board.hands[currentPlayer].Add(Engine.Draw(decks[currentPlayer]));
-        board.hands[currentPlayer].Add(Engine.Draw(decks[currentPlayer]));
+        board.hands[currentPlayer].Add(Engine.Draw(decks[currentPlayer], this.currentPlayer, this));
+        board.hands[currentPlayer].Add(Engine.Draw(decks[currentPlayer], this.currentPlayer, this));
     }
 
     public void UpdateEnergy(int amount, int player)

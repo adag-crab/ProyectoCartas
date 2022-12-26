@@ -185,6 +185,7 @@ public class Program
                     else
                     {
                         Console.WriteLine("No te puedes atacar a ti mismo");
+                        Console.ReadLine();
                     }
                 }
                 else
