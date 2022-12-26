@@ -6,17 +6,12 @@ class Reader
     string[] codeByLines;
     int line;
     int column;
-    public Position eof { get; private set; }
-    public List<Error> errors { get; private set; }
-
     public Reader(string code)
     {
         this.code = code;
-        this.codeByLines = code.Split("\n", StringSplitOptions.RemoveEmptyEntries);
+        this.codeByLines = code.Split("\n");
         this.line = 0;
         this.column = 0;
-        this.errors = new List<Error>();
-        this.eof = new Position(codeByLines.Length, 0);
     }
 
     public bool TryReadToken(string pattern, out Position pos)
@@ -59,7 +54,7 @@ class Reader
                     }
                     else
                     {
-                        this.errors.Add(new Error(pos, "Un número no puede contener dos signos de coma flotante"));
+                        //Aqui va el error no puede tener dos comas
                         break;
                     }
                 }
@@ -68,31 +63,28 @@ class Reader
             }
         }
 
-        return (result != "") ? new Token(result, pos, TokenType.number) : null;
+        return (result != "") ? new Token(result, pos) : null;
     }
-
     public Token Read()
     {
         Position pos = new Position(line, column);
         string result = "";
 
         //while (CanRead(this.column == pos.column))
-        //Console.WriteLine(codeByLines[this.line][this.column].ToString());
-        while (!CheckEOL() && !isWhiteSpace() && !this.symbols.Contains(codeByLines[this.line][this.column].ToString()))
+        while (!CheckEOL() && !this.symbols.Contains(codeByLines[this.line][this.column].ToString()))
         {
             result += codeByLines[this.line][this.column];
             this.column++;
         }
-        if (result == "") return null;
 
-        return new Token(result, pos, TokenType.unknown);
+        if (this.column == pos.column) return null;
+
+        return new Token(result, pos);
     }
-
     public bool CanReadIdentifier(bool isFirstCharacter)
     {
         return (codeByLines[this.line][this.column] == '_' || (isFirstCharacter ? char.IsLetter(codeByLines[this.line][this.column]) : char.IsLetterOrDigit(codeByLines[this.line][this.column])) || CheckEOL());
     }
-
     public bool CanReadNumber(Position pos, bool isFloat)
     {
         if (!isFloat && codeByLines[pos.line][pos.column] == '.')
@@ -101,7 +93,6 @@ class Reader
         }
         return char.IsDigit(codeByLines[pos.line][pos.column]) || (!isFloat && codeByLines[pos.line][pos.column] == '.');
     }
-
     public bool isWhiteSpace()
     {
         if (codeByLines[this.line][this.column] == ' ')
@@ -112,7 +103,6 @@ class Reader
         }
         return false;
     }
-
     public bool CheckEOL()
     {
         if (this.column >= codeByLines[this.line].Length)
@@ -124,7 +114,6 @@ class Reader
 
         return false;
     }
-
     public bool CheckEOF()
     {
         return this.line >= codeByLines.Length;

@@ -7,8 +7,8 @@ public class Actions : ASTNode
     {
         expressions = new List<IActionExpression>();
     }
-    public void Activate(Game game, MonsterCard playerMonster, MonsterCard targetMonster)
+    public void Activate()
     {
-        foreach (IActionExpression expression in expressions) expression.Activate(game, playerMonster, targetMonster);
+        
     }
 }

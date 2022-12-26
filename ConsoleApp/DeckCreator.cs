@@ -3,28 +3,27 @@ namespace ConsoleApp;
 
 public static class DeckCreator
 {
-    public static Deck[] CreateAllDecks(bool[] players)
+    public static Deck[] CreateAllDecks(int players, int npc)
     {
-        Deck[] decks = new Deck[players.Length];
+        Deck[] decks = new Deck[players + npc];
 
-        for (int i = 0; i < players.Length; i++)
+        for (int i = 0; i < players; i++)
         {
             Console.WriteLine("Creando Deck Jugador " + (i + 1));
 
-            if (players[i])
-            {
-                decks[i] = CreateDeck();
-            }
-            else
-            {
+            decks[i] = CreateDeck();
+        }
 
-                decks[i] = CreateNpcDeck();
+        for (int i = players; i < players + npc; i++)
+        {
+            Console.WriteLine("Creando Deck Jugador " + (i + 1));
 
-            }
+            decks[i] = CreateNpcDeck();
         }
 
         return decks;
     }
+
 
     public static Deck CreateDeck()
     {
@@ -34,46 +33,34 @@ public static class DeckCreator
 
         for (int i = 0; i < monsterCards.Length; i++)
         {
-            Program.MessagePrinter messagePrinter = (game) =>
+            Console.Clear();
+            Console.WriteLine("Elija su monstruo " + (i + 1));
+
+            for (int j = 1; j <= Engine.MonsterCardsDataBase.Count; j++)
             {
-                Console.Clear();
-                Console.WriteLine("Elija su monstruo " + (i + 1));
+                Console.WriteLine(j + " Name: " + Engine.MonsterCardsDataBase[j - 1].name + " Type: " + Engine.MonsterCardsDataBase[j - 1].type.ToString() + " Atk: " + Engine.MonsterCardsDataBase[j - 1].attackPoints + " HP: " + Engine.MonsterCardsDataBase[j - 1].lifePoints);
+            }
 
-                for (int j = 1; j <= Engine.MonsterCardsDataBase.Count; j++)
-                {
-                    Console.WriteLine(j + " Name: " + Engine.MonsterCardsDataBase[j - 1].name + " Type: " + Engine.MonsterCardsDataBase[j - 1].type.ToString() + " Atk: " + Engine.MonsterCardsDataBase[j - 1].attackPoints + " HP: " + Engine.MonsterCardsDataBase[j - 1].lifePoints);
-                }
-            };
+            int m = int.Parse(Console.ReadLine());
 
-            int m = Program.OptionValidator((1, Engine.MonsterCardsDataBase.Count), messagePrinter);
+            
+            monsterCards[i] = Engine.MonsterCardsDataBase[m-1];
 
-            monsterCards[i] = Engine.MonsterCardsDataBase[m - 1].Clone();
+            Console.Clear();
+            Console.WriteLine("Elija sus 12 cartas");
 
-            List<int> options = new List<int>();
-
-            messagePrinter = (game) =>
+            for (int j = 1; j <= Engine.PowerCardsDataBase.Count; j++)
             {
-                Console.Clear();
-                Console.WriteLine("Elija sus 4 habilidades");
+                Console.WriteLine(j + " Name: " + Engine.PowerCardsDataBase[j - 1].name + " Type: " + Engine.PowerCardsDataBase[j - 1].type.ToString());
+            }
 
-                for (int j = 1; j <= Engine.PowerCardsDataBase.Count; j++)
-                {
-                    Console.WriteLine(j + " Name: " + Engine.PowerCardsDataBase[j - 1].name + " Type: " + Engine.PowerCardsDataBase[j - 1].type.ToString());
-                }
-                foreach(int option in options)
-                {
-                    Console.WriteLine(option);
-                }
-            };
 
             for (int j = 0; j < 4; j++)
             {
-                int option = Program.OptionValidator((1, Engine.PowerCardsDataBase.Count), messagePrinter);
-                
-                options.Add(option);
+                int p = int.Parse(Console.ReadLine());
 
-                powerCards[i * 4 + j] = Engine.PowerCardsDataBase[option - 1].Clone();
-                asociations.Add(powerCards[i * 4 + j], i);
+                powerCards[i * 4 + j] = Engine.PowerCardsDataBase[p-1];
+                asociations.Add(Engine.PowerCardsDataBase[p-1], i);
             }
         }
 
@@ -81,7 +68,6 @@ public static class DeckCreator
     }
     public static Deck CreateNpcDeck()
     {
-
         MonsterCard[] monsterCards = new MonsterCard[3];
         PowerCard[] powerCards = new PowerCard[12];
         Dictionary<PowerCard, int> asociations = new Dictionary<PowerCard, int>();
@@ -91,15 +77,14 @@ public static class DeckCreator
 
         for (int i = 0; i < monsterCards.Length; i++)
         {
-            monsterCards[i] = Engine.MonsterCardsDataBase[random.Next(0, Engine.MonsterCardsDataBase.Count)].Clone();
+            monsterCards[i] = Engine.MonsterCardsDataBase[random.Next(0, Engine.MonsterCardsDataBase.Count)];
 
-            for (int j = 0; j < 4; j++)
+            for (int j = 0; j < monsterCards.Length; j++)
             {
-                powerCards[i * 4 + j] = Engine.PowerCardsDataBase[random.Next(0, Engine.PowerCardsDataBase.Count)].Clone();
+                powerCards[i * 4 + j] = Engine.PowerCardsDataBase[random.Next(0, Engine.PowerCardsDataBase.Count)];
                 asociations.Add(powerCards[i * 4 + j], i);
             }
         }
-
 
         return new Deck(monsterCards, powerCards, asociations);
     }

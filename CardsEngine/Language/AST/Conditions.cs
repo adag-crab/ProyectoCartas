@@ -8,13 +8,13 @@ public class Conditions : ASTNode
         expressions = new List<IConditionalExpression>();
     }
 
-    public bool Evaluate(Game game, MonsterCard playerMonster, MonsterCard targetMonster)
+    public bool Evaluate()
     {
         bool result = true;
 
         foreach (IConditionalExpression expression in expressions) //Agregar saber cual condicion no se cumple y porq
         {
-            result = result && expression.Evaluate(game, playerMonster, targetMonster);          
+            result = result && expression.Evaluate();          
         }
         
         return result;

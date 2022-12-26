@@ -1,48 +1,40 @@
 namespace CardsEngine;
 
+public interface IClonable
+{
+	public object Clone();
+}
 public abstract class Card
 { 
 	public int id { get; set; }    // para que tener id si el diccionario guarda el id
 	public string name { get; set; }
 	public Engine.Types type { get; set; }
 	public string publicDescription { get; set; }
+	public string programmerDescription { get; set; }
 	public string imageURL { get; set; }
-	public Card(int id, string name, Engine.Types type, string publicDescription, string imageURL)
+	public Card(int id, string name, Engine.Types type, string publicDescription, string programmerDescription, string imageURL)
     {
 		this.id = id;
 		this.name = name;
 		this.type = type;
 		this.publicDescription = publicDescription;
+		this.programmerDescription = programmerDescription;
 		this.imageURL = imageURL;
     }
+
+	
+
 }
-
-public class PowerCard : Card
+public class PowerCard : Card, IClonable
 {
-	public string code { get; private set; }
 	public int activationEnergy { get; private set;}
-
-	public PowerCard(int id, string name, Engine.Types type, string publicDescription, string code, string imageURL, int ActivationEnergy) : base(id, name, type, publicDescription, imageURL)
+	public PowerCard(int id, string name, Engine.Types type, string publicDescription, string programmerDescription, string imageURL, int ActivationEnergy) : base(id, name, type, publicDescription, programmerDescription, imageURL)
 	{
-		this.code = code;
 		this.activationEnergy = ActivationEnergy;
 	}
-
-	/*public PowerCard(PowerCard other): base(other.id, other.name, other.type, other.publicDescription, other.programmerDescription, other.imageURL)
+	public object Clone()
     {
-		this.activationEnergy = other.activationEnergy;
-    */
-
-	public PowerCard Clone()
-    {
-		return new PowerCard(
-			this.id,
-			this.name,
-			this.type,
-			this.publicDescription,
-			this.code,
-			this.imageURL,
-			this.activationEnergy);	
+		return (PowerCard) this.MemberwiseClone();
     }
 }
 
@@ -51,36 +43,21 @@ public class MonsterCard : Card
 	public string state { get; set; }
 	public int attackPoints { get; private set; }
 	public int lifePoints { get; private set; }
-	public MonsterCard(int id, string name, Engine.Types type, string publicDescription, string imageURL, string state, int attackPoints, int lifePoints): base(id, name, type, publicDescription, imageURL)
+	public MonsterCard(int id, string name, Engine.Types type, string publicDescription, string programmerDescription, string imageURL, string state, int attackPoints, int lifePoints): base(id, name, type, publicDescription, programmerDescription, imageURL)
     {
 		this.state = state;
 		this.attackPoints = attackPoints;
 		this.lifePoints = lifePoints;
     }
 
-	/*public MonsterCard(MonsterCard other) : base(other.id, other.name, other.type, other.publicDescription, other.programmerDescription, other.imageURL)
-    {
-		this.state = other.state;
-		this.attackPoints = other.attackPoints;
-		this.lifePoints = other.lifePoints;
-	}*/
 	public void UpdateLifePoints(int points)
     {
 		lifePoints += points;
 		if(lifePoints < 0) lifePoints = 0;
     }
-
-	public MonsterCard Clone()
+	public object Clone()
 	{
-		return new MonsterCard(
-			this.id,
-			this.name,
-			this.type,
-			this.publicDescription,
-			this.imageURL,
-			this.state,
-			this.attackPoints,
-			this.lifePoints);
+		return (MonsterCard) this.MemberwiseClone();
 	}
 }
 
