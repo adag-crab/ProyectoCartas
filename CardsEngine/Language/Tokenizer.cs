@@ -105,6 +105,7 @@ static class TokenCodes
     //Actions
     public static string Attack = "Attack";
     public static string Draw = "Draw";
+    public static string Poison = "Poison";
 
     //Comparisson symbols
     public static string Equal = "==";
@@ -137,6 +138,7 @@ static class TokenCodes
 
         keyWords.Add(Attack);
         keyWords.Add(Draw);
+        keyWords.Add(Poison);
 
         return keyWords;
     }

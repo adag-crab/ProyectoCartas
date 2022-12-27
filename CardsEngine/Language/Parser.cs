@@ -238,6 +238,10 @@ class Parser
         {
             action = new Draw(actionToken.pos);
         }
+        if(actionToken.tokenCode == "Poison")
+        {
+            action = new Poison(actionToken.pos);
+        }
 
         return action;
     }

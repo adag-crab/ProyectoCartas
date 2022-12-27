@@ -41,7 +41,7 @@ public static class DeckCreator
 
                 for (int j = 1; j <= Engine.MonsterCardsDataBase.Count; j++)
                 {
-                    Console.WriteLine(j + " Name: " + Engine.MonsterCardsDataBase[j - 1].name + " Type: " + Engine.MonsterCardsDataBase[j - 1].type.ToString() + " Atk: " + Engine.MonsterCardsDataBase[j - 1].attackPoints + " HP: " + Engine.MonsterCardsDataBase[j - 1].lifePoints);
+                    Console.WriteLine(j + " Name: " + Engine.MonsterCardsDataBase[j - 1].name + " Type: " + Engine.MonsterCardsDataBase[j - 1].type.ToString() + " Atk: " + Engine.MonsterCardsDataBase[j - 1].attackPoints + " HP: " + Engine.MonsterCardsDataBase[j - 1].lifePoints + "\nDescripcion: " + Engine.MonsterCardsDataBase[j - 1].publicDescription);
                 }
             };
 
@@ -58,7 +58,7 @@ public static class DeckCreator
 
                 for (int j = 1; j <= Engine.PowerCardsDataBase.Count; j++)
                 {
-                    Console.WriteLine(j + " Name: " + Engine.PowerCardsDataBase[j - 1].name + " Type: " + Engine.PowerCardsDataBase[j - 1].type.ToString());
+                    Console.WriteLine(j + " Name: " + Engine.PowerCardsDataBase[j - 1].name + " Energia: " + Engine.PowerCardsDataBase[j - 1] .activationEnergy + "\nDescrpcion: " + Engine.PowerCardsDataBase[j - 1].publicDescription);
                 }
                 foreach(int option in options)
                 {

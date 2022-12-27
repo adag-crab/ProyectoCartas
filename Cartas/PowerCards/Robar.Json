@@ -1,1 +1,1 @@
-{"code":"Conditions{\n}\nActions{\n    Draw(2)\n}\n","activationEnergy":20,"id":0,"name":"Robar","type":0,"publicDescription":"Roba 2 cartas","imageURL":""}
+{"code":"Conditions{\n}\nActions{\n    Draw(2)\n}\n","activationEnergy":20,"id":0,"name":"Robar","publicDescription":"Roba 2 cartas","imageURL":""}

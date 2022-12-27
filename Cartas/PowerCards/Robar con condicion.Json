@@ -1,1 +1,1 @@
-{"code":"Conditions{\n    TargetMonsterLife \u003C 100\n}\nActions{\n    Draw(2*3)\n}\n","activationEnergy":10,"id":0,"name":"Robar con condicion","type":0,"publicDescription":"roba siel targetlife \u003C 100","imageURL":""}
+{"code":"Conditions{\n    TargetMonsterLife \u003C 100\n}\nActions{\n    Draw(2*3)\n}\n","activationEnergy":10,"id":0,"name":"Robar con condicion","publicDescription":"roba siel targetlife \u003C 100","imageURL":""}

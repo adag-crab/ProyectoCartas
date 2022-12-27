@@ -1,0 +1,1 @@
+{"code":"Conditions{\n}\nActions{\n    Attack()\n    Poison()\n}\n","activationEnergy":25,"id":0,"name":"Envenenar","publicDescription":"Ataca al enemigo envenenandolo","imageURL":""}

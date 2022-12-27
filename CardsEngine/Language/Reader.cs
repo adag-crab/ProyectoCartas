@@ -129,18 +129,4 @@ class Reader
     {
         return this.line >= codeByLines.Length;
     }
-
-    /*public bool TryReadConditions(int line, int column)
-    {
-        string pattern = "Conditions";
-        for (int i = column; i < column + pattern.Length; i++)
-        {
-            if (pattern[i - column] != codeByLines[line][i])
-            {
-                return false;
-            }
-        }
-
-        return true;
-    }*/
 }

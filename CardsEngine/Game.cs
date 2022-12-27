@@ -50,7 +50,6 @@ public class Game
     {
         Game newGame = new Game(this.players, 200, this.decks);
 
-
         Deck[] newDecks = new Deck[this.decks.Length];
 
         for (int i = 0; i < this.decks.Length; i++)
@@ -96,7 +95,7 @@ public class Game
 
             if (Engine.MonsterDied(targetPlayer, targetMonster, board.monsters))
             {
-                board.monsters[targetPlayer, targetMonster].state = "Muerto";
+                board.monsters[targetPlayer, targetMonster].state = Card.States.Muerto;
                 Engine.DeleteDeadMonsterPowerCards(targetPlayer, this);
             }
 
@@ -116,6 +115,7 @@ public class Game
     public bool NextPlayer()
     {
         this.currentPlayer++;
+        while (this.currentPlayer < this.players.Length && this.losers[this.currentPlayer]) this.currentPlayer++;
         return this.currentPlayer < this.players.Length;
     }
 

@@ -7,24 +7,6 @@ public static class Engine
     public static List<MonsterCard> MonsterCardsDataBase = new List<MonsterCard>();
     public static List<PowerCard> PowerCardsDataBase = new List<PowerCard>();
 
-    public enum Types
-    {
-        planta,
-        elfo,
-        enano,
-        humano,
-        mago
-    };
-
-    public enum States
-    {
-        muerto,
-        envenenado,
-        dormido,
-        euforico,
-        normal
-    };
-
     public static void LoadCards()
     {
         string[] directory = Directory.GetFiles(Path.Join("..", Path.Join("..", Path.Join("..", Path.Join("..", Path.Join("Cartas", "MonsterCards"))))));
@@ -78,7 +60,7 @@ public static class Engine
         int randomCard = random.Next(deck.powers.Length);
         if (game != null)
         {
-            while (game.board.monsters[player, game.decks[player].associations[game.decks[player].powers[randomCard]]].state == "Muerto")
+            while (game.board.monsters[player, game.decks[player].associations[game.decks[player].powers[randomCard]]].state == Card.States.Muerto)
             {
                 randomCard = random.Next(deck.powers.Length);
             }
@@ -128,12 +110,25 @@ public static class Engine
         List<int> _auxHand = new List<int>();
         foreach (int PowerCardIndex in game.board.hands[player])
         {
-            if (game.board.monsters[player, game.decks[player].associations[game.decks[player].powers[PowerCardIndex]]].state != "Muerto")
+            if (game.board.monsters[player, game.decks[player].associations[game.decks[player].powers[PowerCardIndex]]].state != Card.States.Muerto)
             {
                 _auxHand.Add(PowerCardIndex);
             }
         }
         game.board.hands[player] = _auxHand;
+    }
+    public static void UpdateMonsterStates(Game game)
+    {
+        for(int i = 0; i < game.players.Length; i++)
+        {
+            for(int j = 0; j < 3; j++)
+            {
+                if(game.board.monsters[i,j].state == Card.States.Envenenado)
+                {
+                    game.board.monsters[i, j].UpdateLifePoints(-1 * ((int) (game.board.monsters[i, j].lifePoints * 3.0 / 100) < 1 ? 1 : (int)(game.board.monsters[i, j].lifePoints * 3.0 / 100)));
+                }
+            }
+        }
     }
 
     public static void GameOver(int winner)

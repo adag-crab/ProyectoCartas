@@ -72,12 +72,14 @@ public class Program
 
     public static void StartTurn(Game game)
     {
+        Engine.UpdateMonsterStates(game);
         while (game.NextPlayer())
         {
             if (!game.losers[game.currentPlayer])
             {
                 game.UpdateEnergy(3, game.currentPlayer);
                 game.TurnDraw();
+
                 ShowBoard(game);
                 Play(game);
 
@@ -134,13 +136,30 @@ public class Program
         {
             while (true) // Ver como va ha ser la parte visual y la logica de juego
             {
-                MessagePrinter messagePrinter = (game) =>
-                {
-                    ShowBoard(game);
-                    Console.WriteLine("Selecione la carta");
-                };
+                MessagePrinter messagePrinter;
+                int option;
 
-                int option = Program.OptionValidator((0, game.board.hands[game.currentPlayer].Count), messagePrinter, game);
+                while (true)
+                {
+                    messagePrinter = (game) =>
+                    {
+                        ShowBoard(game);
+                        Console.WriteLine("Selecione la carta");
+                    };
+
+                    option = Program.OptionValidator((0, game.board.hands[game.currentPlayer].Count), messagePrinter, game);
+                    if (option == 0) break;
+
+                    messagePrinter = (game) =>
+                    {
+                        ShowBoard(game);
+                        Console.WriteLine("Descripcion de la carta:\n" + game.decks[game.currentPlayer].powers[game.board.hands[game.currentPlayer][option - 1]].publicDescription);
+                        Console.WriteLine("1. Para jugarla 0. Para seleccionar otra");
+                    };
+
+                    int option2 = Program.OptionValidator((0, 1), messagePrinter, game);
+                    if (option2 == 1) break;
+                }
 
                 if (option == 0) break;
 
@@ -207,7 +226,7 @@ public class Program
             int _auxCurrentI = currentI;
             for (int i = 0; i < 2 && currentI < game.players.Length; i++)
             {
-                Console.Write("Player: " + currentI + "\t\t\t\t");
+                Console.Write("Player: " + currentI + "\t\t\t\t\t\t\t");
                 currentI++;
             }
             currentI = _auxCurrentI;
@@ -218,7 +237,7 @@ public class Program
                 _auxCurrentI = currentI;
                 for (int i = 0; i < 2 && currentI < game.players.Length; i++)
                 {
-                    Console.Write(game.board.monsters[currentI, j].name + " HP: " + game.board.monsters[currentI, j].lifePoints + " ATK: " + game.board.monsters[currentI, j].attackPoints + "\t\t");
+                    Console.Write(game.board.monsters[currentI, j].name + " Tipo: " + game.board.monsters[currentI, j].type + " Estado: " + game.board.monsters[currentI, j].state + " HP: " + game.board.monsters[currentI, j].lifePoints + " ATK: " + game.board.monsters[currentI, j].attackPoints + "\t\t");
                     currentI++;
                 }
                 currentI = _auxCurrentI;
@@ -235,7 +254,7 @@ public class Program
 
         for (int i = 0; i < game.board.hands[game.currentPlayer].Count; i++)
         {
-            Console.WriteLine(i + 1 + " " + game.decks[game.currentPlayer].powers[game.board.hands[game.currentPlayer][i]].name);
+            Console.WriteLine(i + 1 + " " + game.decks[game.currentPlayer].powers[game.board.hands[game.currentPlayer][i]].name + " (asociada a: " + game.decks[game.currentPlayer].associations[game.decks[game.currentPlayer].powers[game.board.hands[game.currentPlayer][i]]] + ")");
         }
     }
 
