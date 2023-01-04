@@ -68,7 +68,7 @@ public class Game
         return newGame;
     }
 
-    public bool PlayCard(int handIndex, int player, int targetPlayer) // Annadir el hand index para eliminarla para no eliminar el primero que aparezca
+    public bool PlayCard(int handIndex, int player, int targetPlayer)
     {
 
 
@@ -122,11 +122,6 @@ public class Game
     public void SetPlayer(int newPlayerIndex)
     {
         if(newPlayerIndex < this.players.Length && newPlayerIndex >= 0) this.currentPlayer = newPlayerIndex;
-    }
-    public void TurnDraw()
-    {
-        board.hands[currentPlayer].Add(Engine.Draw(decks[currentPlayer], this.currentPlayer, this));
-        board.hands[currentPlayer].Add(Engine.Draw(decks[currentPlayer], this.currentPlayer, this));
     }
 
     public void UpdateEnergy(int amount, int player)

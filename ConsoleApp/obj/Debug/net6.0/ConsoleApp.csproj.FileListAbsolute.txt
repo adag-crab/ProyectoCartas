@@ -144,3 +144,21 @@ C:\Users\YUNIER\Desktop\ProyectoCartas2\Nueva carpeta\ProyectoCartas-main\Consol
 C:\Users\YUNIER\Desktop\ProyectoCartas2\Nueva carpeta\ProyectoCartas-main\ConsoleApp\obj\Debug\net6.0\ref\ConsoleApp.dll
 C:\Users\YUNIER\Desktop\ProyectoCartas2\Nueva carpeta\ProyectoCartas-main\ConsoleApp\obj\Debug\net6.0\ConsoleApp.pdb
 C:\Users\YUNIER\Desktop\ProyectoCartas2\Nueva carpeta\ProyectoCartas-main\ConsoleApp\obj\Debug\net6.0\ConsoleApp.genruntimeconfig.cache
+D:\Programación\ProyectoCartas\ConsoleApp\bin\Debug\net6.0\ConsoleApp.exe
+D:\Programación\ProyectoCartas\ConsoleApp\bin\Debug\net6.0\ConsoleApp.deps.json
+D:\Programación\ProyectoCartas\ConsoleApp\bin\Debug\net6.0\ConsoleApp.runtimeconfig.json
+D:\Programación\ProyectoCartas\ConsoleApp\bin\Debug\net6.0\ConsoleApp.dll
+D:\Programación\ProyectoCartas\ConsoleApp\bin\Debug\net6.0\ref\ConsoleApp.dll
+D:\Programación\ProyectoCartas\ConsoleApp\bin\Debug\net6.0\ConsoleApp.pdb
+D:\Programación\ProyectoCartas\ConsoleApp\bin\Debug\net6.0\CardsEngine.dll
+D:\Programación\ProyectoCartas\ConsoleApp\bin\Debug\net6.0\CardsEngine.pdb
+D:\Programación\ProyectoCartas\ConsoleApp\obj\Debug\net6.0\ConsoleApp.csproj.AssemblyReference.cache
+D:\Programación\ProyectoCartas\ConsoleApp\obj\Debug\net6.0\ConsoleApp.GeneratedMSBuildEditorConfig.editorconfig
+D:\Programación\ProyectoCartas\ConsoleApp\obj\Debug\net6.0\ConsoleApp.AssemblyInfoInputs.cache
+D:\Programación\ProyectoCartas\ConsoleApp\obj\Debug\net6.0\ConsoleApp.AssemblyInfo.cs
+D:\Programación\ProyectoCartas\ConsoleApp\obj\Debug\net6.0\ConsoleApp.csproj.CoreCompileInputs.cache
+D:\Programación\ProyectoCartas\ConsoleApp\obj\Debug\net6.0\ConsoleApp.csproj.CopyComplete
+D:\Programación\ProyectoCartas\ConsoleApp\obj\Debug\net6.0\ConsoleApp.dll
+D:\Programación\ProyectoCartas\ConsoleApp\obj\Debug\net6.0\ref\ConsoleApp.dll
+D:\Programación\ProyectoCartas\ConsoleApp\obj\Debug\net6.0\ConsoleApp.pdb
+D:\Programación\ProyectoCartas\ConsoleApp\obj\Debug\net6.0\ConsoleApp.genruntimeconfig.cache

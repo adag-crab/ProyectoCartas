@@ -78,7 +78,7 @@ public class Program
             if (!game.losers[game.currentPlayer])
             {
                 game.UpdateEnergy(3, game.currentPlayer);
-                game.TurnDraw();
+                Engine.ActionDraw(game, 2);
 
                 ShowBoard(game);
                 Play(game);

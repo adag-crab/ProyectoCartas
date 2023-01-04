@@ -242,6 +242,10 @@ class Parser
         {
             action = new Poison(actionToken.pos);
         }
+        if(actionToken.tokenCode == "Heal")
+        {
+            action = new Heal(actionToken.pos);
+        }
 
         return action;
     }

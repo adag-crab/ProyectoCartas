@@ -142,7 +142,7 @@ public static class Engine
     {
         for (int i = 0; i < amount; i++)
         {
-            game.board.hands[game.currentPlayer].Add(Draw(game.decks[game.currentPlayer], game.currentPlayer, game));
+            if (game.board.hands[game.currentPlayer].Count < 10)  game.board.hands[game.currentPlayer].Add(Draw(game.decks[game.currentPlayer], game.currentPlayer, game));
         }
     }
 

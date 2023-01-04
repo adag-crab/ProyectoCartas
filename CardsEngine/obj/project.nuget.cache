@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "O3Cs1/KRhnrYQaqNpxaY/Sg7X/wC13gvhgTnchQsC/rXMFsdlFTqa2ZfLq7AajGXomu5ofMTZ8yj0TZpBZBmxA==",
+  "dgSpecHash": "0Qjk/NpM8RuPtQDRHGPvMMeDG/LhgX3GQ9/EdL5wN8biOQ0asG3V2wEUNtB2wgk+1XQkputWSeO3FT4Jwr5+pQ==",
   "success": true,
-  "projectFilePath": "D:\\Programación\\ProyectoCartas-main\\CardsEngine\\CardsEngine.csproj",
+  "projectFilePath": "D:\\Programación\\ProyectoCartas\\CardsEngine\\CardsEngine.csproj",
   "expectedPackageFiles": [],
   "logs": []
 }

@@ -32,11 +32,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\Programación\\ProyectoCartas-main\\ConsoleApp\\ConsoleApp.csproj",
+      "projectUniqueName": "D:\\Programación\\ProyectoCartas\\ConsoleApp\\ConsoleApp.csproj",
       "projectName": "ConsoleApp",
-      "projectPath": "D:\\Programación\\ProyectoCartas-main\\ConsoleApp\\ConsoleApp.csproj",
+      "projectPath": "D:\\Programación\\ProyectoCartas\\ConsoleApp\\ConsoleApp.csproj",
       "packagesPath": "C:\\Users\\Misael\\.nuget\\packages\\",
-      "outputPath": "D:\\Programación\\ProyectoCartas-main\\ConsoleApp\\obj\\",
+      "outputPath": "D:\\Programación\\ProyectoCartas\\ConsoleApp\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\Misael\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -53,8 +53,8 @@
         "net6.0": {
           "targetAlias": "net6.0",
           "projectReferences": {
-            "D:\\Programación\\ProyectoCartas-main\\CardsEngine\\CardsEngine.csproj": {
-              "projectPath": "D:\\Programación\\ProyectoCartas-main\\CardsEngine\\CardsEngine.csproj"
+            "D:\\Programación\\ProyectoCartas\\CardsEngine\\CardsEngine.csproj": {
+              "projectPath": "D:\\Programación\\ProyectoCartas\\CardsEngine\\CardsEngine.csproj"
             }
           }
         }
