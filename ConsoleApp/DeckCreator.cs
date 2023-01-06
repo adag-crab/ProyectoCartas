@@ -17,9 +17,7 @@ public static class DeckCreator
             }
             else
             {
-
                 decks[i] = CreateNpcDeck();
-
             }
         }
 

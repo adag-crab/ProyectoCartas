@@ -78,7 +78,7 @@ class Reader
 
         //while (CanRead(this.column == pos.column))
         //Console.WriteLine(codeByLines[this.line][this.column].ToString());
-        while (!CheckEOL() && !isWhiteSpace() && !this.symbols.Contains(codeByLines[this.line][this.column].ToString()))
+        while (!CheckEOL() && !IsWhiteSpace() && !this.symbols.Contains(codeByLines[this.line][this.column].ToString()))
         {
             result += codeByLines[this.line][this.column];
             this.column++;
@@ -88,21 +88,7 @@ class Reader
         return new Token(result, pos, TokenType.unknown);
     }
 
-    public bool CanReadIdentifier(bool isFirstCharacter)
-    {
-        return (codeByLines[this.line][this.column] == '_' || (isFirstCharacter ? char.IsLetter(codeByLines[this.line][this.column]) : char.IsLetterOrDigit(codeByLines[this.line][this.column])) || CheckEOL());
-    }
-
-    public bool CanReadNumber(Position pos, bool isFloat)
-    {
-        if (!isFloat && codeByLines[pos.line][pos.column] == '.')
-        {
-
-        }
-        return char.IsDigit(codeByLines[pos.line][pos.column]) || (!isFloat && codeByLines[pos.line][pos.column] == '.');
-    }
-
-    public bool isWhiteSpace()
+    public bool IsWhiteSpace()
     {
         if (codeByLines[this.line][this.column] == ' ')
         {

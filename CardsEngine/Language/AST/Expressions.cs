@@ -25,7 +25,7 @@ public interface IConditionalExpression
 
 public interface IActionExpression
 {
-    public bool NeedsParameters(); //para saber si voy a tenre que parsear una expresion dentro de los parentesis
+    public bool NeedsParameters(); //para saber si voy a tener que parsear una expresion dentro de los parentesis
     public INumericalExpression Parameter { get; set; } //el resultao de evaluar la expresion en los parentesis
     public void Activate(Game game, MonsterCard playerMonster, MonsterCard targetMonster);// es generico en T porq a veces necesito que el metodo d evuelva algo
 }	

@@ -1,6 +1,6 @@
 namespace CardsEngine;
 
-public class Npc
+public class NPC
 {
     public int playerNumber { get; private set; }
 
@@ -10,7 +10,7 @@ public class Npc
 
     public static int BetterTarget = -1;
 
-    public Npc(int playerNumber)
+    public NPC(int playerNumber)
     {
         this.playerNumber = playerNumber;
     }

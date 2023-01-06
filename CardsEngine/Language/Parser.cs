@@ -116,35 +116,72 @@ class Parser
     IConditionalExpression TryParseCondition()
     {
         IConditionalExpression condition = null;
-        INumericalExpression? left = ParseExpression();
+        INumericalExpression? left = GetTypeVariable(this.tokens[GetIndex()]);
+        INumericalExpression? right;
 
-        if (left == null)
+        if (left != null)
         {
-            this.errors.Add(new Error(this.tokens[GetIndex()].pos, "No se pudo parsear una expresion aritmetica"));
+            UpdateIndex();
 
-            while (!CheckToken("EOF") && GetCondition(this.tokens[GetIndex()]) == null)
+            if (CheckToken("=="))
+            {
+                condition = GetCondition(this.tokens[GetIndex()]);
+                UpdateIndex();
+            }
+            else
+            {
+                this.errors.Add(new Error(this.tokens[GetIndex()].pos, "Se esperaba =="));
+                while (!CheckToken("EOF") && GetCondition(this.tokens[GetIndex()]) == null)
+                {
+                    UpdateIndex();
+                }
+
+                if (!CheckToken("EOF") && !CheckToken("==")) this.errors.Add(new Error(this.tokens[GetIndex()].pos, "Los tipos solo se pueden comparar con =="));
+                condition = GetCondition(this.tokens[GetIndex()]);
+            }
+
+            right = GetTypeVariable(this.tokens[GetIndex()]);
+
+            if (right == null)
+            {
+                this.errors.Add(new Error(this.tokens[GetIndex()].pos, "No se pudo parsear una varible de tipo"));
+            }
+            else UpdateIndex();
+        }
+        else
+        {
+            left = ParseExpression();
+
+            if (left == null)
+            {
+                this.errors.Add(new Error(this.tokens[GetIndex()].pos, "No se pudo parsear una expresion aritmetica"));
+
+                while (!CheckToken("EOF") && GetCondition(this.tokens[GetIndex()]) == null)
+                {
+                    UpdateIndex();
+                }
+            }
+
+            condition = GetCondition(this.tokens[GetIndex()]);
+
+            if (condition != null)
             {
                 UpdateIndex();
             }
+            else this.errors.Add(new Error(this.tokens[GetIndex()].pos, "Se esperaba un operador de comparacion"));
+
+            right = ParseExpression();
+
+            if (right == null)
+            {
+                this.errors.Add(new Error(this.tokens[GetIndex()].pos, "No se pudo parsear una expresion aritmetica"));
+            }
         }
-
-        condition = GetCondition(this.tokens[GetIndex()]);
-
-        if (condition != null) {
-            UpdateIndex();
-        }
-        else this.errors.Add(new Error(this.tokens[GetIndex()].pos, "Se esperaba un operador de comparacion"));
-
-        INumericalExpression? right = ParseExpression();
-        
-        if(right == null)
+        if (condition != null)
         {
-            this.errors.Add(new Error(this.tokens[GetIndex()].pos, "No se pudo parsear una expresion aritmetica"));
+            condition.Left = left;
+            condition.Right = right;
         }
-
-        condition.Left = left;
-        condition.Right = right;
-
         return condition;
     }
 
@@ -173,7 +210,7 @@ class Parser
             if (action.NeedsParameters())
             {
                 action.Parameter = ParseExpression();
-                if(action.Parameter == null) this.errors.Add(new Error(this.tokens[GetIndex()].pos, "No se pudo parsear un expresion aritmetica"));
+                if (action.Parameter == null) this.errors.Add(new Error(this.tokens[GetIndex()].pos, "No se pudo parsear un expresion aritmetica"));
             }//verificar error aqui con lo del parentesis
             if (!CheckToken(")"))
             {
@@ -183,21 +220,7 @@ class Parser
 
         return action;
     }
-    INumericalExpression GetVariable(Token VariableNameToken)
-    {
-        INumericalExpression variable = null;
 
-        if (VariableNameToken.tokenCode == TokenCodes.PlayerMonsterLife)
-        {
-            variable = new PlayerMonsterLife(VariableNameToken.pos);
-        }
-        if (VariableNameToken.tokenCode == TokenCodes.TargetMonsterLife)
-        {
-            variable = new TargetMonsterLife(VariableNameToken.pos);
-        }
-
-        return variable;
-    }
     IConditionalExpression GetCondition(Token ConditionToken)
     {
         IConditionalExpression condition = null;
@@ -238,16 +261,68 @@ class Parser
         {
             action = new Draw(actionToken.pos);
         }
-        if(actionToken.tokenCode == "Poison")
+        if (actionToken.tokenCode == "Poison")
         {
             action = new Poison(actionToken.pos);
         }
-        if(actionToken.tokenCode == "Heal")
+        if (actionToken.tokenCode == "Heal")
         {
             action = new Heal(actionToken.pos);
         }
 
         return action;
+    }
+
+    /* INumericalExpression GetStateVariable(Token VariableNameToken)
+     {
+         INumericalExpression variable = null;
+
+         if (VariableNameToken.tokenCode == TokenCodes.PlayerMonsterState)
+         {
+             variable = new PlayerMonsterLife(VariableNameToken.pos);
+         }
+         if (VariableNameToken.tokenCode == TokenCodes.TargetMonsterState)
+         {
+             variable = new TargetMonsterLife(VariableNameToken.pos);
+         }
+
+         return variable;
+     }*/
+
+    INumericalExpression GetTypeVariable(Token VariableNameToken)
+    {
+        INumericalExpression variable = null;
+
+        if (VariableNameToken.tokenCode == TokenCodes.PlayerMonsterType)
+        {
+            variable = new PlayerMonsterType(VariableNameToken.pos);
+        }
+        if (VariableNameToken.tokenCode == TokenCodes.TargetMonsterType)
+        {
+            variable = new TargetMonsterType(VariableNameToken.pos);
+        }
+        if (VariableNameToken.tokenCode == TokenCodes.Planta)
+        {
+            variable = new Planta(VariableNameToken.pos);
+        }
+        if (VariableNameToken.tokenCode == TokenCodes.Agua)
+        {
+            variable = new Agua(VariableNameToken.pos);
+        }
+        if (VariableNameToken.tokenCode == TokenCodes.Fuego)
+        {
+            variable = new Fuego(VariableNameToken.pos);
+        }
+        if (VariableNameToken.tokenCode == TokenCodes.Aire)
+        {
+            variable = new Aire(VariableNameToken.pos);
+        }
+        if (VariableNameToken.tokenCode == TokenCodes.Tierra)
+        {
+            variable = new Tierra(VariableNameToken.pos);
+        }
+
+        return variable;
     }
 
     bool IsExpectedToken()
@@ -457,7 +532,7 @@ class Parser
     {
         if (this.tokens[GetIndex()].type == TokenType.keyword)
         {
-            INumericalExpression num = GetVariable(this.tokens[GetIndex()]);
+            INumericalExpression num = GetNumericalVariable(this.tokens[GetIndex()]);
 
             if (num == null) return null;
 
@@ -466,6 +541,22 @@ class Parser
         }
 
         return null;
+    }
+
+    INumericalExpression GetNumericalVariable(Token VariableNameToken)
+    {
+        INumericalExpression variable = null;
+
+        if (VariableNameToken.tokenCode == TokenCodes.PlayerMonsterLife)
+        {
+            variable = new PlayerMonsterLife(VariableNameToken.pos);
+        }
+        if (VariableNameToken.tokenCode == TokenCodes.TargetMonsterLife)
+        {
+            variable = new TargetMonsterLife(VariableNameToken.pos);
+        }
+
+        return variable;
     }
 
     #endregion

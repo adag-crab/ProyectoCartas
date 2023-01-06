@@ -17,7 +17,7 @@ public class Game
     public bool[] losers { get; private set; }
 
     public Board board { get; private set; }
-    public List<Npc> npcs { get; private set; }
+    public List<NPC> npcs { get; private set; }
 
     public Game(bool[] players, int energyPoints, Deck[] decks)
     { // inciar el juego 
@@ -33,13 +33,13 @@ public class Game
         for (int playerIndex = 0; playerIndex < players.Length; playerIndex++) this.energyPoints[playerIndex] = energyPoints;
 
         this.board = new Board(players.Length, decks);
-        this.npcs = new List<Npc>();
+        this.npcs = new List<NPC>();
 
         for (int playerIndex = 0; playerIndex < players.Length; playerIndex++)
         {
             if (!players[playerIndex])
             {
-                npcs.Add(new Npc(playerIndex));
+                npcs.Add(new NPC(playerIndex));
             }
         }
 
@@ -59,7 +59,7 @@ public class Game
 
         newGame.energyPoints = Engine.Clone<int>(this.energyPoints);
         newGame.losers = Engine.Clone<bool>(this.losers);
-        newGame.npcs = Engine.Clone<Npc>(this.npcs.ToArray()).ToList<Npc>(); //no se si hay que clonar los npc
+        newGame.npcs = Engine.Clone<NPC>(this.npcs.ToArray()).ToList<NPC>(); //no se si hay que clonar los npc
 
         newGame.turn = this.turn;
         newGame.SetPlayer(this.currentPlayer);

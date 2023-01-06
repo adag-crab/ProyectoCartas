@@ -1,0 +1,1 @@
+{"code":"Conditions{\n    TargetMonsterType == Planta\n}\nActions{\n    Attack()\n    Attack()\n}\n","activationEnergy":50,"id":0,"name":"ataca 2","publicDescription":"ataca si el tipo del target es planta","imageURL":""}

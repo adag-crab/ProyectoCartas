@@ -45,7 +45,7 @@ public static class Engine
     {
         List<int> hand = new List<int>();
 
-        for (int i = 0; i < 3; i++)
+        for (int i = 0; i < 4; i++)
         {
             hand.Add(Draw(deck));
         }
@@ -117,6 +117,7 @@ public static class Engine
         }
         game.board.hands[player] = _auxHand;
     }
+
     public static void UpdateMonsterStates(Game game)
     {
         for(int i = 0; i < game.players.Length; i++)
@@ -131,18 +132,12 @@ public static class Engine
         }
     }
 
-    public static void GameOver(int winner)
-    {
-
-    }
-
-
     //Funciones para las acciones del lenguaje
     public static void ActionDraw(Game game, int amount)
     {
         for (int i = 0; i < amount; i++)
         {
-            if (game.board.hands[game.currentPlayer].Count < 10)  game.board.hands[game.currentPlayer].Add(Draw(game.decks[game.currentPlayer], game.currentPlayer, game));
+            if (game.board.hands[game.currentPlayer].Count < 7)  game.board.hands[game.currentPlayer].Add(Draw(game.decks[game.currentPlayer], game.currentPlayer, game));
         }
     }
 

@@ -22,7 +22,7 @@ class Tokenizer
         {
             bool read = false;
 
-            if (reader.isWhiteSpace())
+            if (reader.IsWhiteSpace())
             {
                 continue;
             }
@@ -101,6 +101,15 @@ static class TokenCodes
     //Variables
     public static string PlayerMonsterLife = "PlayerMonsterLife";
     public static string TargetMonsterLife = "TargetMonsterLife";
+    public static string PlayerMonsterType = "PlayerMonsterType";
+    public static string TargetMonsterType = "TargetMonsterType";
+    public static string PlayerMonsterState = "PlayerMonsterState";
+    public static string TargetMonsterState = "TargetMonsterState";
+    public static string Planta = "Planta";
+    public static string Agua = "Agua";
+    public static string Fuego = "Fuego";
+    public static string Aire = "Aire";
+    public static string Tierra = "Tierra";
 
     //Actions
     public static string Attack = "Attack";
@@ -141,6 +150,14 @@ static class TokenCodes
         keyWords.Add(Draw);
         keyWords.Add(Poison);
         keyWords.Add(Heal);
+
+        keyWords.Add(PlayerMonsterType);
+        keyWords.Add(TargetMonsterType);
+        keyWords.Add(Planta);
+        keyWords.Add(Agua);
+        keyWords.Add(Fuego);
+        keyWords.Add(Aire);
+        keyWords.Add(Tierra);
 
         return keyWords;
     }

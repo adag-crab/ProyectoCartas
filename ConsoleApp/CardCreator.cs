@@ -50,6 +50,11 @@ public static class CardCreator
         Console.WriteLine("Cual sera el nombre del mounstro");
         string name = Console.ReadLine();
 
+        Console.Clear();
+        Console.WriteLine("La descripcion del Monstruo");
+        string publicDescription = Console.ReadLine();
+
+
         Program.MessagePrinter messagePrinter = (game) =>
         {
             Console.Clear();
@@ -77,7 +82,7 @@ public static class CardCreator
         
         int lifePoints = Program.OptionValidator((0, int.MaxValue), messagePrinter);
 
-        MonsterCard monsterCard = new MonsterCard(0, name, (Card.Types)(opcion - 1), "", "", Card.States.Normal, attackPoints, lifePoints);
+        MonsterCard monsterCard = new MonsterCard(0, name, (Card.Types)(opcion - 1), publicDescription, Card.States.Normal, attackPoints, lifePoints);
 
         Engine.MonsterCardsDataBase.Add(monsterCard);
         Engine.SaveMonsterCard(monsterCard);
@@ -125,7 +130,7 @@ public static class CardCreator
         };
         int activationEnergy = Program.OptionValidator((0, int.MaxValue), messagePrinter);
 
-        PowerCard powerCard = new PowerCard(0, name, publicDescription, code, "", activationEnergy);
+        PowerCard powerCard = new PowerCard(0, name, publicDescription, code, activationEnergy);
         Console.WriteLine(powerCard.code);
 
         Engine.PowerCardsDataBase.Add(powerCard);

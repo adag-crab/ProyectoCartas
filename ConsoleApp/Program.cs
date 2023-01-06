@@ -67,7 +67,7 @@ public class Program
             winner = Engine.PlayerWins(game.losers); // para saber si alguine gano me devuelve el indice del jugador que lo hizo sino devuelve -1
         }
 
-        Engine.GameOver(winner);
+        GameOver(winner);
     }
 
     public static void StartTurn(Game game)
@@ -78,7 +78,7 @@ public class Program
             if (!game.losers[game.currentPlayer])
             {
                 game.UpdateEnergy(3, game.currentPlayer);
-                Engine.ActionDraw(game, 2);
+                Engine.ActionDraw(game, 1);
 
                 ShowBoard(game);
                 Play(game);
@@ -275,5 +275,9 @@ public class Program
             return OptionValidator(range, messagePrinter, game);
         }
         return option;
+    }
+    public static void GameOver(int winner)
+    {
+
     }
 }
