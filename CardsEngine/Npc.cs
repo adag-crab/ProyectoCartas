@@ -3,12 +3,9 @@ namespace CardsEngine;
 public class NPC
 {
     public int playerNumber { get; private set; }
-
-    public static int[] BetterCombination = new int[10]; //hacer una lista
-
-    public static int Life = int.MaxValue;
-
-    public static int BetterTarget = -1;
+    public int[] betterCombination = new int[10];
+    public double qualityOfPLay = 0;
+    public int betterTarget = -1;
 
     public NPC(int playerNumber)
     {
@@ -17,24 +14,28 @@ public class NPC
 
     public (int[], int) PlayTurn(Game game)
     {
+        this.betterCombination = new int[10];
+        this.qualityOfPLay = 0;
+        this.betterTarget = -1;
+
         Potencia(game.board.hands[playerNumber].Count, game, playerNumber);
 
-        return (BetterCombination, BetterTarget);
+        return (betterCombination, betterTarget);
     }
 
-
-    public static void Potencia(int cardsQtt, Game game, int playerNumber)
+    public void Potencia(int cardsQtt, Game game, int playerNumber)
     {
         for (int i = 0; i <= cardsQtt; i++)
         {
             Potencia(0, new int[i], 0, cardsQtt, game, playerNumber, game.energyPoints[playerNumber]);
         }
     }
-    public static void Potencia(int pos, int[] CardsCombination, int auxPos, int cardsQtt, Game game, int playerNumber, int energyRemain)
+
+    public void Potencia(int pos, int[] cardsCombination, int auxPos, int cardsQtt, Game game, int playerNumber, int energyRemain)
     {
-        if (pos == CardsCombination.Length)
+        if (pos == cardsCombination.Length)
         {
-            CardsPermutation(CardsCombination, game, playerNumber);
+            CardsPermutation(cardsCombination, game, playerNumber);
         }
         else
         {
@@ -44,29 +45,30 @@ public class NPC
                 if (activationEnergy < energyRemain)
                 {
                     energyRemain -= activationEnergy;
-                    CardsCombination[pos] = i;
-                    Potencia(pos + 1, CardsCombination, i + 1, cardsQtt, game, playerNumber, energyRemain);
+                    cardsCombination[pos] = i;
+                    Potencia(pos + 1, cardsCombination, i + 1, cardsQtt, game, playerNumber, energyRemain);
                     energyRemain += activationEnergy;
                 }
             }
         }
     }
 
-    public static void CardsPermutation(int[] CardsCombination, Game game, int playerNumber)
+    public void CardsPermutation(int[] cardsCombination, Game game, int playerNumber)
     {
-        CardsPermutation(0, new int[CardsCombination.Length], CardsCombination, new bool[CardsCombination.Length], game, playerNumber);
+        CardsPermutation(0, new int[cardsCombination.Length], cardsCombination, new bool[cardsCombination.Length], game, playerNumber);
     }
-    public static void CardsPermutation(int pos, int[] permutation, int[] combination, bool[] get, Game game, int playerNumber)
+
+    public void CardsPermutation(int pos, int[] permutation, int[] combination, bool[] get, Game game, int playerNumber)
     {
         if (pos == permutation.Length)
         {
-            (int, int) RemainLifeTarget = EvaluateBetterplay(game, permutation, playerNumber);
+            (double, int) QualityTarget = EvaluateBetterplay(game, permutation, playerNumber);
 
-            if (RemainLifeTarget.Item1 < Life)
+            if (QualityTarget.Item1 > qualityOfPLay)
             {
-                Life = RemainLifeTarget.Item1;
-                BetterTarget = RemainLifeTarget.Item2;
-                BetterCombination = permutation;
+                qualityOfPLay = QualityTarget.Item1;
+                betterTarget = QualityTarget.Item2;
+                betterCombination = permutation;
             }
 
         }
@@ -85,24 +87,29 @@ public class NPC
         }
     }
 
-
-
-
-    private static (int, int) EvaluateBetterplay(Game game, int[] cards, int playerNumber)   // vida restante, target
+    private (double, int) EvaluateBetterplay(Game game, int[] cards, int playerNumber)   // QUALITY, target
     {
-        int globalLife = int.MaxValue;
+        double quality = 0;
         int target = -1;
-
 
         for (int i = 0; i < game.players.Length; i++)
         {
             if (i != playerNumber)
             {
-                Game NewGame = game.Clone();
+                Game newGame = game.Clone();
+                /*
+                 *Las estadisticas a analizar son: Vida del oponente, vida delm player, energia del player, cartas en la mano
+                 */
+                int[] statics = new int[4];  // estadisticas antes de hacer la jugada
                 
+                statics[0] = newGame.board.monsters[i, 0].lifePoints + newGame.board.monsters[i, 1].lifePoints + newGame.board.monsters[i, 2].lifePoints;
+                statics[1] = newGame.board.monsters[playerNumber, 0].lifePoints + newGame.board.monsters[playerNumber, 1].lifePoints + newGame.board.monsters[playerNumber, 2].lifePoints;
+                statics[2] = newGame.energyPoints[playerNumber];
+                statics[3] = newGame.board.hands[playerNumber].Count;
+
                 for (int j = 0; j < cards.Length; j++)
                 {
-                    NewGame.PlayCard(cards[j], playerNumber, i);
+                    newGame.PlayCard(cards[j], playerNumber, i);
                     
                     if (game.losers[i])
                         return (0, i);
@@ -112,17 +119,40 @@ public class NPC
 
                 }
 
-                int TotalLife = NewGame.board.monsters[i, 0].lifePoints + NewGame.board.monsters[i, 1].lifePoints + NewGame.board.monsters[i, 2].lifePoints;
+                int[] newStatics = new int[4]; // estadisticas despues de haver la jugada
 
-                if (TotalLife < globalLife)
+                newStatics[0] = newGame.board.monsters[i, 0].lifePoints + newGame.board.monsters[i, 1].lifePoints + newGame.board.monsters[i, 2].lifePoints;
+                newStatics[1] = newGame.board.monsters[playerNumber, 0].lifePoints + newGame.board.monsters[playerNumber, 1].lifePoints + newGame.board.monsters[playerNumber, 2].lifePoints;
+                newStatics[2] = newGame.energyPoints[playerNumber];
+                newStatics[3] = newGame.board.hands[playerNumber].Count;
+
+                if(EvaluateStatics(statics,newStatics) > quality)
                 {
-                    globalLife = TotalLife;
+                    quality = EvaluateStatics(statics,newStatics);
                     target = i;
                 }
             }
         }
 
-        return (globalLife, target);
+        return (quality, target);
+    }
+
+    private double EvaluateStatics(int[] statics, int[] newStatics)
+    {
+        double quality = 0; // maxima puntuacion sera 10 
+        int[] points = { 5, 2, 2, 1 }; // 5 puntos para la vida del target, 2 para vida del player actual y para su enegia, 1 para cartas en la mano 
+
+        quality += (double)(statics[0] - newStatics[0]) / statics[0] * points[0];
+        
+        for (int i = 1; i < statics.Length; i++)
+        {
+            if(newStatics[i] > statics[i])
+            {
+                quality += (double)(newStatics[i] - statics[i]) / statics[i] * points[i];
+            }
+        }
+
+        return quality;
     }
 
 }

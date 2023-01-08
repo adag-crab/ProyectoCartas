@@ -273,22 +273,6 @@ class Parser
         return action;
     }
 
-    /* INumericalExpression GetStateVariable(Token VariableNameToken)
-     {
-         INumericalExpression variable = null;
-
-         if (VariableNameToken.tokenCode == TokenCodes.PlayerMonsterState)
-         {
-             variable = new PlayerMonsterLife(VariableNameToken.pos);
-         }
-         if (VariableNameToken.tokenCode == TokenCodes.TargetMonsterState)
-         {
-             variable = new TargetMonsterLife(VariableNameToken.pos);
-         }
-
-         return variable;
-     }*/
-
     INumericalExpression GetTypeVariable(Token VariableNameToken)
     {
         INumericalExpression variable = null;

@@ -77,7 +77,7 @@ public class Program
         {
             if (!game.losers[game.currentPlayer])
             {
-                game.UpdateEnergy(3, game.currentPlayer);
+                game.UpdateEnergy(50, game.currentPlayer);
                 Engine.ActionDraw(game, 1);
 
                 ShowBoard(game);
@@ -109,14 +109,16 @@ public class Program
             {
                 if (!game.losers[targetPlayer])
                 {
+                    
+                    Console.WriteLine("Presione enter para la siguiente jugada");
+                    Console.ReadLine();
+
                     if (!game.PlayCard(cardsToPlay[i], game.currentPlayer, targetPlayer))
                     {
                         Console.WriteLine("No se cumplieron las condiciones para activar el efecto de la carta");
                         Console.ReadLine();
                     }
                     ShowBoard(game);
-                    Console.WriteLine("Presione enter para la siguiente jugada");
-                    Console.ReadLine();
 
                     if (Engine.PlayerLose(targetPlayer, game.board.monsters))
                     {
@@ -254,8 +256,10 @@ public class Program
 
         for (int i = 0; i < game.board.hands[game.currentPlayer].Count; i++)
         {
-            Console.WriteLine(i + 1 + " " + game.decks[game.currentPlayer].powers[game.board.hands[game.currentPlayer][i]].name + " (asociada a: " + game.decks[game.currentPlayer].associations[game.decks[game.currentPlayer].powers[game.board.hands[game.currentPlayer][i]]] + ")");
+            Console.WriteLine(i + 1 + " " + game.decks[game.currentPlayer].powers[game.board.hands[game.currentPlayer][i]].name + " (asociada a: " + game.decks[game.currentPlayer].associations[game.decks[game.currentPlayer].powers[game.board.hands[game.currentPlayer][i]]] + ") Costo de energia: " + game.decks[game.currentPlayer].powers[game.board.hands[game.currentPlayer][i]].activationEnergy);
         }
+
+        Console.WriteLine();
     }
 
     public delegate void MessagePrinter(Game? gmae);
