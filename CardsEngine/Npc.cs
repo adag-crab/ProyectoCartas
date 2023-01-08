@@ -3,7 +3,7 @@ namespace CardsEngine;
 public class NPC
 {
     public int playerNumber { get; private set; }
-    public int[] betterCombination = new int[10];
+    public int[] betterCombination = new int[0];
     public double qualityOfPLay = 0;
     public int betterTarget = -1;
 
@@ -14,13 +14,13 @@ public class NPC
 
     public (int[], int) PlayTurn(Game game)
     {
-        this.betterCombination = new int[10];
+        this.betterCombination = new int[0];
         this.qualityOfPLay = 0;
         this.betterTarget = -1;
 
         Potencia(game.board.hands[playerNumber].Count, game, playerNumber);
 
-        return (betterCombination, betterTarget);
+        return (this.betterCombination, this.betterTarget);
     }
 
     public void Potencia(int cardsQtt, Game game, int playerNumber)
@@ -125,8 +125,8 @@ public class NPC
                 newStatics[1] = newGame.board.monsters[playerNumber, 0].lifePoints + newGame.board.monsters[playerNumber, 1].lifePoints + newGame.board.monsters[playerNumber, 2].lifePoints;
                 newStatics[2] = newGame.energyPoints[playerNumber];
                 newStatics[3] = newGame.board.hands[playerNumber].Count;
-
-                if(EvaluateStatics(statics,newStatics) > quality)
+                
+                if (EvaluateStatics(statics,newStatics) > quality)
                 {
                     quality = EvaluateStatics(statics,newStatics);
                     target = i;

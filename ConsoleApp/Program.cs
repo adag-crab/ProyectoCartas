@@ -98,12 +98,14 @@ public class Program
 
     public static void Play(Game game)
     {
-        if (!game.players[game.currentPlayer])    //chequear si quien juga es un npc
+        if (!game.players[game.currentPlayer])    //chequear si quien juega es un npc
         {
             int RealPlayers = game.players.Length - game.npcs.Count;
 
-            int[] cardsToPlay = game.npcs[game.currentPlayer - RealPlayers].PlayTurn(game).Item1;
-            int targetPlayer = game.npcs[game.currentPlayer - RealPlayers].PlayTurn(game).Item2;
+            (int[], int) npcCardsToPlay = game.npcs[game.currentPlayer - RealPlayers].PlayTurn(game);
+
+            int[] cardsToPlay = npcCardsToPlay.Item1;
+            int targetPlayer = npcCardsToPlay.Item2;
 
             for (int i = 0; i < cardsToPlay.Length; i++)
             {
