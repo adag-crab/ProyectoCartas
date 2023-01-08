@@ -1,7 +1,7 @@
 namespace CardsEngine;
-public class Heal : Expression, IActionExpression
+public class UpdateEnergy : Expression, IActionExpression
 {
-    public Heal(Position position) : base(position) { }
+    public UpdateEnergy(Position pos) : base(pos) { }
     public bool NeedsParameters()
     {
         return true;
@@ -9,6 +9,6 @@ public class Heal : Expression, IActionExpression
     public INumericalExpression Parameter { get; set; }
     public void Activate(Game game, MonsterCard playerMonster, MonsterCard targetMonster)
     {
-        playerMonster.UpdateLifePoints((int) Parameter.Evaluate(game, playerMonster, targetMonster));
+        game.UpdateEnergy((int)Parameter.Evaluate(game, playerMonster, targetMonster), game.currentPlayer);
     }
 }

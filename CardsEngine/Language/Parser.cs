@@ -123,20 +123,20 @@ class Parser
         {
             UpdateIndex();
 
-            if (CheckToken("=="))
+            if (CheckToken("==") || CheckToken("!="))
             {
                 condition = GetCondition(this.tokens[GetIndex()]);
                 UpdateIndex();
             }
             else
             {
-                this.errors.Add(new Error(this.tokens[GetIndex()].pos, "Se esperaba =="));
+                this.errors.Add(new Error(this.tokens[GetIndex()].pos, "Se esperaba == o !="));
                 while (!CheckToken("EOF") && GetCondition(this.tokens[GetIndex()]) == null)
                 {
                     UpdateIndex();
                 }
 
-                if (!CheckToken("EOF") && !CheckToken("==")) this.errors.Add(new Error(this.tokens[GetIndex()].pos, "Los tipos solo se pueden comparar con =="));
+                if (!CheckToken("EOF") && !CheckToken("==") && !CheckToken("!=")) this.errors.Add(new Error(this.tokens[GetIndex()].pos, "Los tipos solo se pueden comparar con == o !="));
                 condition = GetCondition(this.tokens[GetIndex()]);
             }
 
@@ -229,6 +229,10 @@ class Parser
         {
             condition = new Equal(ConditionToken.pos);
         }
+        if(ConditionToken.tokenCode == "!=")
+        {
+            condition = new Diferent(ConditionToken.pos);
+        }
         if (ConditionToken.tokenCode == ">=")
         {
             condition = new BiggerOrEqualThan(ConditionToken.pos);
@@ -253,21 +257,33 @@ class Parser
     {
         IActionExpression action = null;
 
-        if (actionToken.tokenCode == "Attack")
+        if (actionToken.tokenCode == TokenCodes.Attack)
         {
             action = new Attack(actionToken.pos);
         }
-        if (actionToken.tokenCode == "Draw")
+        if (actionToken.tokenCode == TokenCodes.Draw)
         {
             action = new Draw(actionToken.pos);
         }
-        if (actionToken.tokenCode == "Poison")
+        if (actionToken.tokenCode == TokenCodes.Poison)
         {
             action = new Poison(actionToken.pos);
         }
-        if (actionToken.tokenCode == "Heal")
+        if (actionToken.tokenCode == TokenCodes.UpdatePlayerMonsterLife)
         {
-            action = new Heal(actionToken.pos);
+            action = new UpdatePlayerMonsterLife(actionToken.pos);
+        }
+        if (actionToken.tokenCode == TokenCodes.UpdateTargetMonsterLife)
+        {
+            action = new UpdateTargetMonsterLife(actionToken.pos);
+        }
+        if (actionToken.tokenCode == TokenCodes.UpdateEnergy)
+        {
+            action = new UpdateEnergy(actionToken.pos);
+        }
+        if (actionToken.tokenCode == TokenCodes.Purify)
+        {
+            action = new Purify(actionToken.pos);
         }
 
         return action;
@@ -538,6 +554,10 @@ class Parser
         if (VariableNameToken.tokenCode == TokenCodes.TargetMonsterLife)
         {
             variable = new TargetMonsterLife(VariableNameToken.pos);
+        }
+        if (VariableNameToken.tokenCode == TokenCodes.PlayerHandSize)
+        {
+            variable = new PlayerHandSize(VariableNameToken.pos);
         }
 
         return variable;

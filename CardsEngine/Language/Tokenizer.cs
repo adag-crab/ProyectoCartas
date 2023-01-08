@@ -101,6 +101,7 @@ static class TokenCodes
     //Variables
     public static string PlayerMonsterLife = "PlayerMonsterLife";
     public static string TargetMonsterLife = "TargetMonsterLife";
+    public static string PlayerHandSize = "PlayerHandSize";
     public static string PlayerMonsterType = "PlayerMonsterType";
     public static string TargetMonsterType = "TargetMonsterType";
     public static string PlayerMonsterState = "PlayerMonsterState";
@@ -115,10 +116,14 @@ static class TokenCodes
     public static string Attack = "Attack";
     public static string Draw = "Draw";
     public static string Poison = "Poison";
-    public static string Heal = "Heal";
+    public static string UpdatePlayerMonsterLife = "UpdatePlayerMonsterLife";
+    public static string UpdateTargetMonsterLife = "UpdateTargetMonsterLife";
+    public static string UpdateEnergy = "UpdateEnergy";
+    public static string Purify = "Purify";
 
     //Comparisson symbols
     public static string Equal = "==";
+    public static string Diferent = "!=";
     public static string BiggerThan = ">";
     public static string LowerThan = "<";
     public static string BiggerOrEqualThan = ">=";
@@ -145,11 +150,15 @@ static class TokenCodes
 
         keyWords.Add(PlayerMonsterLife);
         keyWords.Add(TargetMonsterLife);
+        keyWords.Add(PlayerHandSize);
 
         keyWords.Add(Attack);
         keyWords.Add(Draw);
         keyWords.Add(Poison);
-        keyWords.Add(Heal);
+        keyWords.Add(UpdatePlayerMonsterLife);
+        keyWords.Add(UpdateTargetMonsterLife);
+        keyWords.Add(UpdateEnergy);
+        keyWords.Add(Purify);
 
         keyWords.Add(PlayerMonsterType);
         keyWords.Add(TargetMonsterType);
@@ -166,6 +175,7 @@ static class TokenCodes
         List<string> symbols = new List<string>();
 
         symbols.Add(Equal);
+        symbols.Add(Diferent);
         symbols.Add(BiggerThan);
         symbols.Add(LowerThan);
         symbols.Add(BiggerOrEqualThan);

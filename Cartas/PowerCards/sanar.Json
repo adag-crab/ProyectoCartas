@@ -1,1 +1,1 @@
-{"code":"Conditions{}\nActions{\n    Heal(PlayerMonsterLife/10)\n}\n","activationEnergy":50,"id":0,"name":"sanar","publicDescription":"Sana al monstruo en un 10%","imageURL":""}
+{"code":"Conditions{}\nActions{\n    UpdatePlayerMonsterLife(PlayerMonsterLife/10)\n}\n","activationEnergy":50,"id":0,"name":"sanar","publicDescription":"Sana al monstruo en un 10%","imageURL":""}

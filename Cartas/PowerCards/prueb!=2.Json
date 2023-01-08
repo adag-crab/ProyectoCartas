@@ -1,0 +1,1 @@
+{"code":"Conditions{\n    TargetMonsterType != Fuego\n}\nActions{\n    Attack()\n}\n","activationEnergy":50,"id":0,"name":"prueb!=2","publicDescription":"asdads"}
